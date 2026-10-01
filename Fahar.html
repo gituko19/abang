@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WarisanRasa - Portal Resep & Warisan Kuliner Indonesia 🇮🇩</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        terracotta: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            500: '#d95a32',
+                            600: '#c85a32',
+                            700: '#a74322',
+                        },
+                        amberdeep: {
+                            500: '#d97706',
+                            600: '#b45309',
+                        },
+                        emeraldleaf: {
+                            600: '#15803d',
+                            700: '#166534',
+                        },
+                        warmcream: '#FAF6F0',
+                        slateish: '#1E293B',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        [v-cloak] { display: none !important; }
+        
+        /* Custom scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D97706;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c85a32;
+        }
+
+        .bg-batik-pattern {
+            background-color: #FAF6F0;
+            background-image: radial-gradient(#C85A32 0.75px, transparent 0.75px), radial-gradient(#D97706 0.75px, #FAF6F0 0.75px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            background-opacity: 0.05;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(200, 90, 50, 0.12);
+        }
+
+        .recipe-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .recipe-card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(200, 90, 50, 0.15), 0 8px 10px -6px rgba(200, 90, 50, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-warmcream text-slateish font-sans antialiased selection:bg-terracotta-500 selection:text-white">
+
+    <div id="app" v-cloak class="min-h-screen flex flex-col justify-between relative bg-batik-pattern">
+
+        <!-- TOAST NOTIFICATIONS -->
+        <div class="fixed top-24 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
+            <transition-group enter-active-class="transform transition ease-out duration-300" enter-from-class="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2" enter-to-class="translate-y-0 opacity-100 sm:translate-x-0" leave-active-class="transition ease-in duration-200" leave-from-class="opacity-100" leave-to-class="opacity-0">
+                <div v-for="toast in toasts" :key="toast.id" class="pointer-events-auto flex items-center p-4 rounded-2xl shadow-xl border border-terracotta-500/20 bg-white/95 backdrop-blur-md text-slateish space-x-3">
+                    <div class="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center text-base font-bold" :class="toast.type === 'success' ? 'bg-emeraldleaf-600/10 text-emeraldleaf-600' : 'bg-terracotta-500/10 text-terracotta-600'">
+                        <i :class="toast.type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-bell'"></i>
+                    </div>
+                    <div class="text-xs font-semibold leading-tight text-slate-800">{{ toast.message }}</div>
+                </div>
+            </transition-group>
+        </div>
+
+        <!-- TOP ANNOUNCEMENT BANNER -->
+        <div class="bg-gradient-to-r from-terracotta-700 via-terracotta-600 to-amberdeep-600 text-white text-xs py-2 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-2 shadow-sm">
+            <span class="bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">Warisan Otentik</span>
+            <span>Jelajahi kuis bahan kulkas, kalkulator porsi otomatis, & timer memasak audio! 🥘✨</span>
+        </div>
+
+        <!-- NAVIGATION HEADER -->
+        <header class="sticky top-0 z-40 bg-warmcream/90 backdrop-blur-md border-b border-terracotta-600/15 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    
+                    <!-- Brand Logo -->
+                    <a @click="navTab = 'jelajah'" href="#" class="flex items-center gap-3 group">
+                        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-terracotta-600 to-amberdeep-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-terracotta-600/20 group-hover:scale-105 transition-transform duration-300">
+                            <i class="fa-solid fa-mortar-pestle"></i>
+                        </div>
+                        <div>
+                            <span class="font-serif text-2xl font-bold tracking-tight text-slateish group-hover:text-terracotta-600 transition-colors">Warisan<span class="text-terracotta-600">Nusantara</span></span>
+                            <span class="block text-[10px] font-bold tracking-widest text-amberdeep-600 -mt-1 uppercase">Cita Rasa Indonesia</span>
+                        </div>
+                    </a>
+
+                    <!-- Nav Tabs Desktop -->
+                    <nav class="hidden md:flex items-center gap-1 bg-white/80 p-1.5 rounded-full border border-terracotta-600/10 shadow-sm">
+                        <button @click="navTab = 'jelajah'" :class="navTab === 'jelajah' ? 'bg-terracotta-600 text-white font-bold shadow-md' : 'text-slate-600 hover:text-terracotta-600 font-medium'" class="px-4 py-2 rounded-full text-xs transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-compass"></i>
+                            <span>Jelajah Resep</span>
+                        </button>
+                        <button @click="navTab = 'cekkulkas'" :class="navTab === 'cekkulkas' ? 'bg-terracotta-600 text-white font-bold shadow-md' : 'text-slate-600 hover:text-terracotta-600 font-medium'" class="px-4 py-2 rounded-full text-xs transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-refrigerator text-amberdeep-500"></i>
+                            <span>Cek Kulkas</span>
+                        </button>
+                        <button @click="navTab = 'kamus'" :class="navTab === 'kamus' ? 'bg-terracotta-600 text-white font-bold shadow-md' : 'text-slate-600 hover:text-terracotta-600 font-medium'" class="px-4 py-2 rounded-full text-xs transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-seedling text-emeraldleaf-600"></i>
+                            <span>Kamus Bumbu</span>
+                        </button>
+                    </nav>
+
+                    <!-- Actions: Favorites, Shopping List & Submit -->
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <!-- Quick Search Toggle Desktop -->
+                        <div class="relative hidden lg:block w-48">
+                            <input type="text" v-model="searchQuery" placeholder="Cari soto, rendang..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-full bg-white border border-terracotta-600/20 focus:border-terracotta-600 focus:outline-none text-slate-800 placeholder-slate-400">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                        </div>
+
+                        <!-- Favorites Button -->
+                        <button @click="toggleFavoritesTab" :class="navTab === 'favorit' ? 'bg-terracotta-600 text-white' : 'bg-white text-slate-600 hover:text-terracotta-600 border border-slate-200'" class="relative p-2.5 rounded-full shadow-sm transition-all" title="Resep Favorit Saya">
+                            <i class="fa-solid fa-heart text-sm"></i>
+                            <span v-if="favorites.length > 0" class="absolute -top-1 -right-1 bg-amberdeep-500 text-white font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center shadow-md">
+                                {{ favorites.length }}
+                            </span>
+                        </button>
+
+                        <!-- Shopping List Button Drawer -->
+                        <button @click="isShoppingDrawerOpen = true" class="relative bg-white text-slate-700 hover:text-terracotta-600 p-2.5 rounded-full border border-slate-200 shadow-sm transition-all" title="Daftar Belanja Bumbu">
+                            <i class="fa-solid fa-basket-shopping text-sm"></i>
+                            <span v-if="shoppingList.length > 0" class="absolute -top-1 -right-1 bg-emeraldleaf-600 text-white font-bold text-[10px] w-4 h-4 rounded-full flex items-center justify-center shadow-md">
+                                {{ shoppingList.length }}
+                            </span>
+                        </button>
+
+                        <!-- Submit Recipe Button -->
+                        <button @click="isSubmitRecipeOpen = true" class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-terracotta-600 to-amberdeep-600 hover:from-terracotta-700 hover:to-amberdeep-700 text-white font-bold px-4 py-2 rounded-full text-xs shadow-md shadow-terracotta-600/20 transition-all">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                            <span>Tulis Resep</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Mobile Sub-Navigation -->
+            <div class="md:hidden px-4 pb-3 flex items-center justify-around gap-1 border-t border-slate-200/60 pt-2 text-xs">
+                <button @click="navTab = 'jelajah'" :class="navTab === 'jelajah' ? 'text-terracotta-600 font-bold border-b-2 border-terracotta-600' : 'text-slate-500'" class="pb-1">
+                    Jelajah Resep
+                </button>
+                <button @click="navTab = 'cekkulkas'" :class="navTab === 'cekkulkas' ? 'text-terracotta-600 font-bold border-b-2 border-terracotta-600' : 'text-slate-500'" class="pb-1">
+                    Cek Kulkas
+                </button>
+                <button @click="navTab = 'kamus'" :class="navTab === 'kamus' ? 'text-terracotta-600 font-bold border-b-2 border-terracotta-600' : 'text-slate-500'" class="pb-1">
+                    Kamus Bumbu
+                </button>
+                <button @click="isSubmitRecipeOpen = true" class="text-amberdeep-600 font-bold">
+                    + Tulis Resep
+                </button>
+            </div>
+        </header>
+
+        <!-- HERO SECTION & FEATURED RECIPE OF THE DAY -->
+        <section v-if="navTab === 'jelajah'" class="relative pt-8 pb-12 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Left Hero Header -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-terracotta-500/10 border border-terracotta-500/20 text-terracotta-700 text-xs font-bold">
+                            <i class="fa-solid fa-pepper-hot text-terracotta-600"></i>
+                            <span>Eksplorasi {{ recipes.length }}+ Resep Otentik Sabang Sampai Merauke</span>
+                        </div>
+
+                        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-slateish leading-tight">
+                            Keharmonisan <span class="italic text-terracotta-600">Bumbu & Rempah</span> Warisan Nusantara.
+                        </h1>
+
+                        <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                            Temukan rahasia kelezatan masakan nenek moyang dengan panduan porsi presisi, takaran bahan otomatis, serta timer memasak terpandu.
+                        </p>
+
+                        <!-- Main Big Search Input -->
+                        <div class="max-w-xl mx-auto lg:mx-0 relative">
+                            <div class="flex items-center bg-white rounded-2xl shadow-xl p-2 border border-terracotta-600/15">
+                                <i class="fa-solid fa-magnifying-glass text-slate-400 text-lg ml-3 mr-2"></i>
+                                <input type="text" v-model="searchQuery" placeholder="Cari resep favorit (Contoh: Rendang, Soto, Betutu...)" class="w-full text-xs sm:text-sm bg-transparent outline-none text-slate-800 placeholder-slate-400">
+                                <button v-if="searchQuery" @click="searchQuery = ''" class="px-2 text-slate-400 hover:text-slate-600 text-xs">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                                <a href="#katalog" class="bg-terracotta-600 hover:bg-terracotta-700 text-white text-xs font-bold px-5 py-3 rounded-xl transition-all flex-shrink-0 flex items-center gap-2">
+                                    <span>Cari</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                            </div>
+
+                            <!-- Quick Suggestion Tags -->
+                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2 mt-3 text-xs text-slate-500">
+                                <span class="font-bold">Populer:</span>
+                                <button v-for="tag in ['Rendang', 'Soto', 'Ayam Betutu', 'Rawon', 'Es Teler', 'Sambal Matah']" :key="tag" @click="searchQuery = tag" class="px-2.5 py-1 rounded-full bg-white/80 border border-slate-200 hover:border-terracotta-600 hover:text-terracotta-600 transition-colors text-[11px]">
+                                    {{ tag }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Featured Recipe Widget -->
+                    <div class="lg:col-span-5">
+                        <div class="relative glass-card p-4 rounded-3xl overflow-hidden shadow-2xl border border-terracotta-600/20 group">
+                            <div class="absolute top-6 left-6 z-10 bg-amberdeep-500 text-white font-bold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                                ★ Resep Pilihan Hari Ini
+                            </div>
+
+                            <div class="aspect-[4/3] rounded-2xl overflow-hidden relative bg-slate-900">
+                                <img :src="featuredRecipe.image" :alt="featuredRecipe.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slateish via-slateish/20 to-transparent"></div>
+                                
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <div class="flex items-center gap-2 text-xs text-amber-300 font-semibold mb-1">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <span>{{ featuredRecipe.region }}</span>
+                                        <span>•</span>
+                                        <span><i class="fa-solid fa-fire text-terracotta-500 mr-1"></i>{{ featuredRecipe.calories }} Kcal</span>
+                                    </div>
+                                    <h3 class="font-serif font-bold text-2xl leading-tight text-white mb-2">{{ featuredRecipe.title }}</h3>
+                                    
+                                    <div class="flex items-center justify-between pt-2 border-t border-white/20 text-xs text-slate-200">
+                                        <span><i class="fa-regular fa-clock mr-1 text-amber-300"></i>{{ featuredRecipe.cookTime }} Menit</span>
+                                        <span><i class="fa-solid fa-gauge-high mr-1 text-emerald-400"></i>{{ featuredRecipe.difficulty }}</span>
+                                        <button @click="openRecipeModal(featuredRecipe)" class="px-3.5 py-1.5 rounded-xl bg-terracotta-600 text-white font-bold text-xs hover:bg-terracotta-700 transition-colors shadow-md">
+                                            Masak Sekarang
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PANTRY INGREDIENT MATCHER VIEW (CEK KULKAS) -->
+        <section v-if="navTab === 'cekkulkas'" class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full animate-fadeIn">
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border border-terracotta-600/20 shadow-xl mb-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amberdeep-500/10 text-amberdeep-600 text-xs font-bold mb-2">
+                        <i class="fa-solid fa-refrigerator"></i>
+                        <span>Smart Pantry Ingredient Matcher</span>
+                    </div>
+                    <h2 class="font-serif text-3xl font-bold text-slateish">Bingung Mau Masak Apa Hari Ini?</h2>WarisanRasa
+                    <p class="text-xs sm:text-sm text-slate-600 mt-2">Centang bahan-bahan yang tersedia di kulkas Anda.  akan menghitung persentase ketersediaan resep terbaik!</p>
+                </div>
+
+                <!-- Pantry Checklist Categories -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div v-for="cat in pantryCategories" :key="cat.name" class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center gap-2 font-bold text-sm text-slateish border-b border-slate-100 pb-2 mb-3">
+                            <i :class="cat.icon" class="text-terracotta-600"></i>
+                            <span>{{ cat.name }}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <label v-for="item in cat.items" :key="item" class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-warmcream cursor-pointer text-xs transition-colors">
+                                <input type="checkbox" :value="item" v-model="selectedPantryIngredients" class="rounded text-terracotta-600 focus:ring-terracotta-500">
+                                <span :class="selectedPantryIngredients.includes(item) ? 'font-bold text-terracotta-700' : 'text-slate-600'">{{ item }}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selection Actions -->
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-200 text-xs">
+                    <div class="text-slate-600 font-medium">
+                        Dipilih: <span class="font-bold text-terracotta-600">{{ selectedPantryIngredients.length }} Bahan</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button @click="selectedPantryIngredients = []" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 font-bold">
+                            Reset Checklist
+                        </button>
+                        <button @click="selectPresetPantry('bumbuDesa')" class="px-4 py-2 rounded-xl bg-amberdeep-500/10 text-amberdeep-600 border border-amberdeep-500/30 font-bold hover:bg-amberdeep-500/20">
+                            Preset: Bumbu Dasar Nusantara
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Matched Recipes Results -->
+            <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-serif font-bold text-2xl text-slateish">Hasil Rekomendasi Resep Matched</h3>
+                    <span class="text-xs text-slate-500">Diurutkan berdasarkan persentase kelengkapan bahan</span>
+                </div>
+
+                <div v-if="matchedRecipes.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div v-for="item in matchedRecipes" :key="item.recipe.id" class="glass-card recipe-card-hover rounded-3xl overflow-hidden border border-slate-200 flex flex-col justify-between">
+                        
+                        <div>
+                            <div class="relative aspect-[4/3] overflow-hidden bg-slate-900">
+                                <img :src="item.recipe.image" :alt="item.recipe.title" class="w-full h-full object-cover">
+                                <!-- Percentage Badge -->
+                                <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full shadow-lg border text-xs font-black flex items-center gap-1.5"
+                                     :class="item.matchPercent >= 70 ? 'text-emeraldleaf-600 border-emeraldleaf-600/30' : item.matchPercent >= 40 ? 'text-amberdeep-600 border-amberdeep-600/30' : 'text-slate-600 border-slate-300'">
+                                    <i class="fa-solid fa-chart-pie"></i>
+                                    <span>{{ item.matchPercent }}% Bahan Terpenuhi</span>
+                                </div>
+                            </div>
+
+                            <div class="p-5">
+                                <span class="text-[10px] text-terracotta-600 font-bold uppercase tracking-wider">{{ item.recipe.region }}</span>
+                                <h4 class="font-serif font-bold text-lg text-slateish mt-0.5 line-clamp-1">{{ item.recipe.title }}</h4>
+                                <p class="text-xs text-slate-500 mt-1 line-clamp-2">{{ item.recipe.description }}</p>
+
+                                <!-- Ingredient breakdown -->
+                                <div class="mt-4 pt-3 border-t border-slate-100 text-[11px]">
+                                    <p class="font-bold text-slate-700 mb-1">Status Bahan:</p>
+                                    <p class="text-emeraldleaf-600 font-medium">✓ Memiliki {{ item.matchedCount }} dari {{ item.totalCount }} bahan</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-5 pt-0">
+                            <button @click="openRecipeModal(item.recipe)" class="w-full py-2.5 rounded-2xl bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold text-xs transition-colors shadow-md">
+                                Lihat Panduan Resep
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KAMUS BUMBU & REMPAH NUSANTARA (SPICE ENCYCLOPEDIA) -->
+        <section v-if="navTab === 'kamus'" class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full animate-fadeIn">
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <span class="text-emeraldleaf-600 text-xs font-bold uppercase tracking-widest">Edukasi Kuliner</span>
+                <h2 class="font-serif text-3xl font-bold text-slateish mt-1">Kamus Bumbu & Rempah Otentik</h2>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2">Mengenal lebih dalam profil aromatik, fungsi masakan, dan alternatif pengganti bumbu warisan nenek moyang.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div v-for="spice in spices" :key="spice.name" class="glass-card rounded-3xl p-6 border border-emeraldleaf-600/20 hover:shadow-xl transition-all">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 rounded-2xl bg-emeraldleaf-600/10 text-emeraldleaf-600 flex items-center justify-center text-2xl font-bold flex-shrink-0">
+                            <i :class="spice.icon"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-serif font-bold text-lg text-slateish">{{ spice.name }}</h3>
+                            <span class="text-[11px] text-emeraldleaf-600 font-semibold bg-emeraldleaf-600/10 px-2 py-0.5 rounded-full">{{ spice.latinName }}</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-xs text-slate-600">
+                        <div>
+                            <strong class="text-slate-800 font-bold block mb-0.5"><i class="fa-solid fa-wind text-amberdeep-500 mr-1"></i>Profil Aroma & Rasa:</strong>
+                            <p>{{ spice.aroma }}</p>
+                        </div>
+                        <div>
+                            <strong class="text-slate-800 font-bold block mb-0.5"><i class="fa-solid fa-utensils text-terracotta-600 mr-1"></i>Fungsi Dalam Masakan:</strong>
+                            <p>{{ spice.function }}</p>
+                        </div>
+                        <div class="bg-amberdeep-500/10 p-3 rounded-2xl border border-amberdeep-500/20">
+                            <strong class="text-amberdeep-700 font-bold block mb-0.5"><i class="fa-solid fa-right-left text-amberdeep-600 mr-1"></i>Alternatif Pengganti:</strong>
+                            <p class="text-amberdeep-900">{{ spice.substitute }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECIPE CATALOG & MULTI-DIMENSIONAL FILTERS -->
+        <section id="katalog" v-if="navTab === 'jelajah' || navTab === 'favorit'" class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6">
+                <div>
+                    <span class="text-terracotta-600 text-xs font-bold uppercase tracking-widest">{{ navTab === 'favorit' ? 'Simpanan Pilihan' : 'Katalog Nusantara' }}</span>
+                    <h2 class="font-serif text-3xl font-bold text-slateish mt-1">{{ navTab === 'favorit' ? 'Resep Favorit Saya ❤️' : 'Jelajahi Kuliner Daerah' }}</h2>
+                </div>
+                <p class="text-slate-500 text-xs sm:text-sm mt-2 md:mt-0 max-w-md">Filter resep berdasarkan pulau, kategori masakan, tingkat kesulitan, hingga durasi.</p>
+            </div>
+
+            <!-- Filter Controls Panel -->
+            <div v-if="navTab === 'jelajah'" class="glass-card p-5 rounded-3xl mb-8 space-y-4 border border-terracotta-600/15 shadow-sm">
+                
+                <!-- Region Tabs Slider -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-2">Wilayah / Pulau Asal:</label>
+                    <div class="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                        <button v-for="r in regions" :key="r" @click="selectedRegion = r" :class="selectedRegion === r ? 'bg-terracotta-600 text-white font-bold shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'" class="px-4 py-2 rounded-2xl text-xs whitespace-nowrap transition-all">
+                            {{ r }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Secondary Filters Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2 border-t border-slate-200/60">
+                    
+                    <!-- Category Select -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Kategori Masakan:</label>
+                        <select v-model="selectedCategory" class="w-full bg-white border border-slate-300 text-slate-800 text-xs rounded-xl p-2.5 outline-none focus:border-terracotta-600 font-medium">
+                            <option value="Semua">Semua Kategori</option>
+                            <option value="Makanan Utama">Makanan Utama</option>
+                            <option value="Sup & Soto">Sup & Soto</option>
+                            <option value="Sambal & Tumis">Sambal & Tumis</option>
+                            <option value="Jajanan Pasar">Jajanan Pasar</option>
+                            <option value="Minuman Tradisional">Minuman Tradisional</option>
+                        </select>
+                    </div>
+
+                    <!-- Difficulty Select -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Tingkat Kesulitan:</label>
+                        <select v-model="selectedDifficulty" class="w-full bg-white border border-slate-300 text-slate-800 text-xs rounded-xl p-2.5 outline-none focus:border-terracotta-600 font-medium">
+                            <option value="Semua">Semua Kesulitan</option>
+                            <option value="Mudah">Mudah (&lt; 3 langkah)</option>
+                            <option value="Sedang">Sedang</option>
+                            <option value="Sulit">Sulit / Butuh Kesabaran</option>
+                        </select>
+                    </div>
+
+                    <!-- Time Select -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Durasi Memasak:</label>
+                        <select v-model="selectedTime" class="w-full bg-white border border-slate-300 text-slate-800 text-xs rounded-xl p-2.5 outline-none focus:border-terracotta-600 font-medium">
+                            <option value="Semua">Semua Durasi</option>
+                            <option value="fast">&lt; 30 Menit (Cepat)</option>
+                            <option value="medium">30 - 60 Menit</option>
+                            <option value="slow">&gt; 60 Menit (Proses Ungkep)</option>
+                        </select>
+                    </div>
+
+                    <!-- Sorting Select -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-600 mb-1">Urutan Resep:</label>
+                        <select v-model="sortBy" class="w-full bg-white border border-slate-300 text-slate-800 text-xs rounded-xl p-2.5 outline-none focus:border-terracotta-600 font-medium">
+                            <option value="popular">Paling Populer</option>
+                            <option value="rating">Rating Tertinggi</option>
+                            <option value="fastest">Memasak Tercepat</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Recipe Grid Display -->
+            <div v-if="filteredRecipes.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                
+                <div v-for="recipe in filteredRecipes" :key="recipe.id" class="glass-card recipe-card-hover rounded-3xl overflow-hidden border border-slate-200/80 flex flex-col justify-between group">
+                    
+                    <div>
+                        <!-- Image Container -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-slate-900">
+                            <img :src="recipe.image" :alt="recipe.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <!-- Region Badge -->
+                            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-md text-terracotta-700 font-bold text-[10px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                                {{ recipe.region }}
+                            </span>
+
+                            <!-- Favorite Button Toggle -->
+                            <button @click="toggleFavorite(recipe.id)" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-slate-400 hover:text-rose-500 transition-colors shadow-md">
+                                <i :class="isFavorite(recipe.id) ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart'"></i>
+                            </button>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-5">
+                            <div class="flex items-center justify-between text-[11px] text-slate-500 mb-1">
+                                <span class="text-amberdeep-600 font-bold uppercase tracking-wider">{{ recipe.category }}</span>
+                                <div class="flex items-center gap-1 text-amberdeep-500 font-bold">
+                                    <i class="fa-solid fa-star text-[10px]"></i>
+                                    <span>{{ recipe.rating }}</span>
+                                </div>
+                            </div>
+
+                            <h3 class="font-serif font-bold text-base text-slateish group-hover:text-terracotta-600 transition-colors line-clamp-1">
+                                {{ recipe.title }}
+                            </h3>
+
+                            <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                                {{ recipe.description }}
+                            </p>
+
+                            <!-- Quick Recipe Stats -->
+                            <div class="grid grid-cols-3 gap-1 pt-4 mt-4 border-t border-slate-100 text-center text-[10px] text-slate-600">
+                                <div>
+                                    <i class="fa-regular fa-clock text-amberdeep-500 block mb-0.5"></i>
+                                    <span>{{ recipe.cookTime }} mnt</span>
+                                </div>
+                                <div>
+                                    <i class="fa-solid fa-fire text-terracotta-500 block mb-0.5"></i>
+                                    <span>{{ recipe.calories }} kcal</span>
+                                </div>
+                                <div>
+                                    <i class="fa-solid fa-users text-emeraldleaf-600 block mb-0.5"></i>
+                                    <span>{{ recipe.baseServings }} Porsi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer Button -->
+                    <div class="p-5 pt-0">
+                        <button @click="openRecipeModal(recipe)" class="w-full py-2.5 rounded-2xl bg-terracotta-600 hover:bg-terracotta-700 text-white text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                            <span>Lihat Resep & Masak</span>
+                            <i class="fa-solid fa-utensils text-[10px]"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Empty State -->
+            <div v-else class="text-center py-16 glass-card rounded-3xl">
+                <i class="fa-solid fa-mortar-pestle text-4xl text-slate-300 mb-3"></i>
+                <h3 class="font-serif font-bold text-lg text-slateish">Resep Tidak Ditemukan</h3>
+                <p class="text-xs text-slate-500 mt-1">Coba atur ulang kata kunci pencarian atau bersihkan filter Anda.</p>
+                <button @click="resetFilters" class="mt-4 px-5 py-2 rounded-xl bg-terracotta-600 text-white font-bold text-xs">Reset Filter</button>
+            </div>
+
+        </section>
+
+        <!-- INTERACTIVE RECIPE VIEWER MODAL (DETAIL RESEP MODAL) -->
+        <div v-if="activeRecipeModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/70 backdrop-blur-md animate-fadeIn">
+            <div class="glass-card rounded-3xl max-w-3xl w-full overflow-hidden border border-terracotta-600/30 max-h-[92vh] flex flex-col shadow-2xl">
+                
+                <!-- Modal Header Banner -->
+                <div class="relative h-56 sm:h-64 overflow-hidden flex-shrink-0 bg-slate-900">
+                    <img :src="activeRecipeModal.image" :alt="activeRecipeModal.title" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slateish via-slateish/30 to-transparent"></div>
+                    
+                    <button @click="activeRecipeModal = null" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slateish/80 text-white flex items-center justify-center hover:bg-terracotta-600 transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <div class="absolute bottom-4 left-6 right-6 text-white">
+                        <span class="bg-amberdeep-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                            {{ activeRecipeModal.region }} • {{ activeRecipeModal.category }}
+                        </span>
+                        <h3 class="font-serif font-bold text-2xl sm:text-3xl text-white mt-1">{{ activeRecipeModal.title }}</h3>
+                    </div>
+                </div>
+
+                <!-- Modal Scrollable Content -->
+                <div class="p-6 overflow-y-auto custom-scrollbar space-y-6 text-xs text-slate-700 flex-grow">
+                    
+                    <!-- Portion Scaler Bar -->
+                    <div class="p-4 rounded-2xl bg-amberdeep-500/10 border border-amberdeep-500/20 flex items-center justify-between gap-4">
+                        <div>
+                            <strong class="text-slateish font-bold text-sm block">Kalkulator Takaran Porsi:</strong>
+                            <span class="text-[11px] text-slate-500">Jumlah bahan otomatis dikalkulasi ulang matematis!</span>
+                        </div>
+
+                        <div class="flex items-center bg-white border border-amberdeep-500/30 rounded-xl overflow-hidden shadow-sm">
+                            <button @click="servingMultiplier > 1 ? servingMultiplier-- : null" class="px-3 py-1.5 font-bold text-amberdeep-600 hover:bg-amberdeep-500/10">-</button>
+                            <span class="px-4 font-black text-slateish text-xs">{{ servingMultiplier }} Porsi</span>
+                            <button @click="servingMultiplier++" class="px-3 py-1.5 font-bold text-amberdeep-600 hover:bg-amberdeep-500/10">+</button>
+                        </div>
+                    </div>
+
+                    <!-- Nutrition Facts Bar -->
+                    <div class="grid grid-cols-4 gap-2 text-center p-3 rounded-2xl bg-slate-100 text-[11px]">
+                        <div>
+                            <span class="block text-slate-400">Kalori</span>
+                            <strong class="text-terracotta-600">{{ Math.round(activeRecipeModal.calories * (servingMultiplier / activeRecipeModal.baseServings)) }} kcal</strong>
+                        </div>
+                        <div>
+                            <span class="block text-slate-400">Protein</span>
+                            <strong class="text-slateish">{{ activeRecipeModal.nutrition.protein }}g</strong>
+                        </div>
+                        <div>
+                            <span class="block text-slate-400">Lemak</span>
+                            <strong class="text-slateish">{{ activeRecipeModal.nutrition.fat }}g</strong>
+                        </div>
+                        <div>
+                            <span class="block text-slate-400">Karbo</span>
+                            <strong class="text-slateish">{{ activeRecipeModal.nutrition.carbs }}g</strong>
+                        </div>
+                    </div>
+
+                    <!-- Ingredients List & Checklist -->
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-serif font-bold text-base text-slateish">Bumbu & Bahan Dipersiapkan:</h4>
+                            <button @click="addAllToShoppingList(activeRecipeModal)" class="text-xs font-bold text-emeraldleaf-600 hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <span>Tambah Belum Ada ke Belanja</span>
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <label v-for="(ing, i) in activeRecipeModal.ingredients" :key="i" class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-terracotta-600/40">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" v-model="recipeChecklist[i]" class="rounded text-terracotta-600 focus:ring-terracotta-500">
+                                    <span :class="recipeChecklist[i] ? 'line-through text-slate-400' : 'text-slate-800 font-medium'">{{ ing.name }}</span>
+                                </div>
+                                <span class="font-bold text-terracotta-600">
+                                    {{ calculateIngredientAmount(ing.amount, activeRecipeModal.baseServings) }} {{ ing.unit }}
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Cooking Steps & Interactive Timers -->
+                    <div>
+                        <h4 class="font-serif font-bold text-base text-slateish mb-3">Langkah Memasak Terpandu:</h4>
+                        <div class="space-y-3">
+                            <div v-for="(step, sIdx) in activeRecipeModal.steps" :key="sIdx" class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+                                <div class="flex items-start gap-3">
+                                    <span class="w-6 h-6 rounded-full bg-terracotta-600 text-white font-bold flex items-center justify-center flex-shrink-0 text-[11px]">
+                                        {{ sIdx + 1 }}
+                                    </span>
+                                    <p class="text-slate-700 leading-relaxed font-medium pt-0.5">{{ step.instruction }}</p>
+                                </div>
+
+                                <!-- Timer Button if step duration available -->
+                                <div v-if="step.timerMinutes" class="pt-2 pl-9 flex items-center gap-3">
+                                    <button @click="toggleStepTimer(sIdx, step.timerMinutes)" :class="activeTimers[sIdx]?.running ? 'bg-amberdeep-500 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'" class="px-3 py-1.5 rounded-xl text-[11px] font-bold flex items-center gap-2 transition-colors">
+                                        <i class="fa-solid fa-stopwatch"></i>
+                                        <span>{{ activeTimers[sIdx]?.running ? 'Timer: ' + formatTimerDisplay(activeTimers[sIdx].timeLeft) : 'Jalankan Timer (' + step.timerMinutes + ' mnt)' }}</span>
+                                    </button>
+                                    <span v-if="activeTimers[sIdx]?.finished" class="text-emeraldleaf-600 font-bold flex items-center gap-1">
+                                        <i class="fa-solid fa-bell text-amberdeep-500 animate-bounce"></i> Waktu Habis!
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Secret Mother's Kitchen Tips -->
+                    <div class="p-4 rounded-2xl bg-emeraldleaf-600/10 border border-emeraldleaf-600/20 text-emeraldleaf-900">
+                        <strong class="font-bold block mb-1 text-xs text-emeraldleaf-700">
+                            <i class="fa-solid fa-lightbulb text-amberdeep-500 mr-1"></i>Tips Rahasia Dapur Ibu:
+                        </strong>
+                        <p class="leading-relaxed">{{ activeRecipeModal.secretTip }}</p>
+                    </div>
+
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="p-4 border-t border-slate-200 bg-white/80 flex items-center justify-between">
+                    <button @click="toggleFavorite(activeRecipeModal.id)" class="px-4 py-2 rounded-xl border border-slate-300 font-bold text-xs flex items-center gap-2">
+                        <i :class="isFavorite(activeRecipeModal.id) ? 'fa-solid fa-heart text-rose-500' : 'fa-regular fa-heart'"></i>
+                        <span>{{ isFavorite(activeRecipeModal.id) ? 'Disimpan' : 'Favoritkan' }}</span>
+                    </button>
+                    
+                    <button @click="activeRecipeModal = null" class="px-6 py-2 rounded-xl bg-slateish text-white font-bold text-xs">
+                        Selesai Memasak
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SHOPPING LIST DRAWER MODAL -->
+        <div v-if="isShoppingDrawerOpen" class="fixed inset-0 z-50 overflow-hidden animate-fadeIn">
+            <div @click="isShoppingDrawerOpen = false" class="absolute inset-0 bg-slate-950/60 backdrop-blur-xs"></div>
+
+            <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+                <div class="w-screen max-w-md bg-white shadow-2xl border-l border-slate-200 flex flex-col justify-between">
+                    
+                    <div class="p-5 border-b border-slate-200 flex items-center justify-between bg-warmcream">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-basket-shopping text-terracotta-600"></i>
+                            <h3 class="font-serif font-bold text-lg text-slateish">Daftar Belanja Pasar</h3>
+                        </div>
+                        <button @click="isShoppingDrawerOpen = false" class="text-slate-400 hover:text-slate-600">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                    </div>
+
+                    <div class="p-5 overflow-y-auto custom-scrollbar flex-grow space-y-4 text-xs">
+                        <div v-if="shoppingList.length === 0" class="text-center py-20">
+                            <i class="fa-solid fa-basket-shopping text-4xl text-slate-300 mb-2"></i>
+                            <p class="font-bold text-slate-600">Daftar Belanja Kosong</p>
+                            <p class="text-slate-400 mt-1">Tambahkan bahan dari detail resep untuk dibawa ke pasar!</p>
+                        </div>
+
+                        <div v-else class="space-y-2">
+                            <div v-for="(item, idx) in shoppingList" :key="idx" class="flex items-center justify-between p-3 rounded-xl bg-warmcream border border-slate-200">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" v-model="item.checked" class="rounded text-terracotta-600">
+                                    <span :class="item.checked ? 'line-through text-slate-400' : 'text-slate-800 font-medium'">{{ item.name }}</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-bold text-terracotta-600">{{ item.amount }} {{ item.unit }}</span>
+                                    <button @click="removeShoppingItem(idx)" class="text-slate-400 hover:text-rose-500">
+                                        <i class="fa-solid fa-trash-can text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="shoppingList.length > 0" class="p-5 border-t border-slate-200 bg-warmcream space-y-2">
+                        <button @click="copyShoppingListToWA" class="w-full py-3 rounded-2xl bg-emeraldleaf-600 hover:bg-emeraldleaf-700 text-white font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-md">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Kirim Daftar ke WhatsApp</span>
+                        </button>
+                        <button @click="shoppingList = []" class="w-full py-2 text-slate-500 font-bold hover:text-rose-600 text-xs">
+                            Bersihkan Semua Item
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM SUBMIT RESEP KELUARGA MODAL -->
+        <div v-if="isSubmitRecipeOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-fadeIn">
+            <div class="glass-card rounded-3xl max-w-lg w-full overflow-hidden border border-terracotta-600/30 max-h-[90vh] flex flex-col">
+                <div class="p-5 border-b border-slate-200 bg-warmcream flex items-center justify-between">
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-slateish">Tulis Resep Warisan Keluarga</h3>
+                        <p class="text-[11px] text-slate-500">Bagikan resep otentik daerah Anda ke Nusantara</p>
+                    </div>
+                    <button @click="isSubmitRecipeOpen = false" class="text-slate-400 hover:text-slate-600">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <form @submit.prevent="submitUserRecipe" class="p-6 overflow-y-auto custom-scrollbar space-y-4 text-xs">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Judul Resep *</label>
+                        <input type="text" v-model="newRecipeForm.title" required placeholder="Contoh: Ayam Bumbu Rujak Ibu Sanah" class="w-full p-2.5 rounded-xl border border-slate-300 outline-none focus:border-terracotta-600">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Daerah Asal *</label>
+                            <input type="text" v-model="newRecipeForm.region" required placeholder="Contoh: Jawa Timur" class="w-full p-2.5 rounded-xl border border-slate-300 outline-none focus:border-terracotta-600">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
+                            <select v-model="newRecipeForm.category" class="w-full p-2.5 rounded-xl border border-slate-300 outline-none focus:border-terracotta-600">
+                                <option value="Makanan Utama">Makanan Utama</option>
+                                <option value="Sup & Soto">Sup & Soto</option>
+                                <option value="Sambal & Tumis">Sambal & Tumis</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Bahan-bahan Utama (Pisahkan koma) *</label>
+                        <textarea v-model="newRecipeForm.ingredientsText" required rows="3" placeholder="Contoh: 500g Daging Ayam, 3 lbr Daun Jeruk, 2 btg Serai..." class="w-full p-2.5 rounded-xl border border-slate-300 outline-none focus:border-terracotta-600"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Langkah Memasak Singkat *</label>
+                        <textarea v-model="newRecipeForm.stepsText" required rows="3" placeholder="Tuliskan urutan memasak..." class="w-full p-2.5 rounded-xl border border-slate-300 outline-none focus:border-terracotta-600"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 rounded-2xl bg-terracotta-600 hover:bg-terracotta-700 text-white font-bold transition-colors shadow-md">
+                        Terbitkan Resep Baru
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="bg-slateish border-t border-slate-800 pt-12 pb-8 text-slate-400 text-xs">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="space-y-3">
+                        <span class="font-serif font-bold text-xl text-white">Dapur<span class="text-terracotta-500">Nusantara</span></span>
+                        <p class="text-slate-400 leading-relaxed">Portal resep warisan kuliner otentik Indonesia. Melestarikan kekayaan bumbu & rempah Nusantara untuk generasi mendatang.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-3">Wilayah Kuliner</h4>
+                        <ul class="space-y-1.5">
+                            <li>Sumatra & Malaka</li>
+                            <li>Jawa & Madura</li>
+                            <li>Bali & Nusa Tenggara</li>
+                            <li>Sulawesi & Maluku</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-3">Kategori Resep</h4>
+                        <ul class="space-y-1.5">
+                            <li>Sup & Soto Rempah</li>
+                            <li>Sambal & Tumisan Desa</li>
+                            <li>Jajanan Pasar Tradisional</li>
+                            <li>Minuman Jamu & Es Segar</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-3">Misi Warisan</h4>
+                        <p class="leading-relaxed">Mendukung bahan lokal pasar tradisional Indonesia & kebanggaan masakan rumah.</p>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-slate-800 text-center text-slate-500">
+                    © 2026 WarisanRasa. Dilestarikan dengan cinta & rempah Indonesia 🇮🇩
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        const { createApp, ref, computed, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                // Toasts state
+                const toasts = ref([]);
+                const addToast = (message, type = 'info') => {
+                    const id = Date.now();
+                    toasts.value.push({ id, message, type });
+                    setTimeout(() => {
+                        toasts.value = toasts.value.filter(t => t.id !== id);
+                    }, 3000);
+                };
+
+                // Sound Effect for Timer
+                const playTimerAlarmSound = () => {
+                    try {
+                        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+                        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3); // A5
+                        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.6);
+                    } catch(e) {}
+                };
+
+                // Navigation State
+                const navTab = ref('jelajah');
+                const searchQuery = ref('');
+                const selectedRegion = ref('Semua');
+                const selectedCategory = ref('Semua');
+                const selectedDifficulty = ref('Semua');
+                const selectedTime = ref('Semua');
+                const sortBy = ref('popular');
+
+                const favorites = ref(JSON.parse(localStorage.getItem('dn_favs') || '[]'));
+                const shoppingList = ref(JSON.parse(localStorage.getItem('dn_shop') || '[]'));
+
+                // Modals
+                const activeRecipeModal = ref(null);
+                const servingMultiplier = ref(4);
+                const recipeChecklist = ref({});
+                const activeTimers = ref({});
+                const isShoppingDrawerOpen = ref(false);
+                const isSubmitRecipeOpen = ref(false);
+
+                // Regions list
+                const regions = ['Semua', 'Sumatra', 'Jawa', 'Bali & Nusa Tenggara', 'Sulawesi', 'Kalimantan', 'Maluku & Papua'];
+
+                // Pantry Matcher State
+                const selectedPantryIngredients = ref(['Bawang Merah', 'Bawang Putih', 'Cabai', 'Santan', 'Daging Sapi']);
+                const pantryCategories = [
+                    {
+                        name: 'Bumbu & Rempah Dapur',
+                        icon: 'fa-solid fa-mortar-pestle',
+                        items: ['Bawang Merah', 'Bawang Putih', 'Cabai', 'Serai', 'Kunyit', 'Lengkuas', 'Jahe', 'Daun Jeruk', 'Santan', 'Kluwek']
+                    },
+                    {
+                        name: 'Bahan Utama Protein',
+                        icon: 'fa-solid fa-drumstick-bite',
+                        items: ['Daging Sapi', 'Daging Ayam', 'Ikan Tenggiri', 'Ikan Tongkol', 'Tahu', 'Tempe', 'Telur Ayam', 'Kepiting']
+                    },
+                    {
+                        name: 'Sayuran & Pelengkap',
+                        icon: 'fa-solid fa-carrot',
+                        items: ['Nangka Muda', 'Kangkung', 'Kelapa Parut', 'Alpukat', 'Kelapa Muda', 'Tauge', 'Timun']
+                    }
+                ];
+
+                // Spice Encyclopedia Data
+                const spices = [
+                    {
+                        name: 'Kunyit (Turmeric)',
+                        latinName: 'Curcuma longa',
+                        icon: 'fa-solid fa-sun',
+                        aroma: 'Hangat, sedikit pahit pedas, dan memberi warna kuning alami emas.',
+                        function: 'Bumbu dasar soto, gulai, ayam betutu, dan menghilangkan bau amis daging/ikan.',
+                        substitute: 'Bubuk kunyit murni (1/2 sdt bubuk = 2cm kunyit segar).'
+                    },
+                    {
+                        name: 'Lengkuas / Laos',
+                        latinName: 'Alpinia galanga',
+                        icon: 'fa-solid fa-tree',
+                        aroma: 'Aromatik sitrus segar, sedikit pedas tajam kayu.',
+                        function: 'Pemberi aroma segar pada rendang, rawon, sayur asem, dan oseng-oseng.',
+                        substitute: 'Jahe segar dipadu sedikit perasan kulit lemon.'
+                    },
+                    {
+                        name: 'Kluwek / Picung',
+                        latinName: 'Pangium edule',
+                        icon: 'fa-solid fa-circle',
+                        aroma: 'Gurih nutty, manis pahit fermentasi, pewarna hitam pekat alami.',
+                        function: 'Bumbu kunci utama Rawon Surabaya dan Sup Konro Makassar.',
+                        substitute: 'Kombinasi kemiri sangrai, kecap manis pekat, dan sedikit terasi.'
+                    },
+                    {
+                        name: 'Serai (Lemongrass)',
+                        latinName: 'Cymbopogon citratus',
+                        icon: 'fa-solid fa-spa',
+                        aroma: 'Sitrus herbal segar yang sangat menenangkan.',
+                        function: 'Mengharumkan sambal matah, woku, rendang, dan kuah soto.',
+                        substitute: 'Parutan kulit jeruk nipis / lemon.'
+                    },
+                    {
+                        name: 'Daun Jeruk Purut',
+                        latinName: 'Citrus hystrix',
+                        icon: 'fa-solid fa-leaf',
+                        aroma: 'Sangat wangi sitrus segar khas masakan Indonesia.',
+                        function: 'Menghilangkan amis ikan/daging & penyegar rempah rempeyek/gulai.',
+                        substitute: 'Daun jeruk lemon segar yang dimemarkan.'
+                    },
+                    {
+                        name: 'Asam Kandis',
+                        latinName: 'Garcinia xanthochymus',
+                        icon: 'fa-solid fa-lemon',
+                        aroma: 'Asam pekat gurih yang khas masakan Minang.',
+                        function: 'Pengasam alami masakan rendang dan asam padeh.',
+                        substitute: 'Asam gelugur atau potongan belimbing wuluh.'
+                    }
+                ];
+
+                // Master Recipes Dataset (12 Iconic Recipes)
+                const recipes = ref([
+                    {
+                        id: 1,
+                        title: 'Rendang Daging Padang Otentik',
+                        region: 'Sumatra',
+                        category: 'Makanan Utama',
+                        cookTime: 180,
+                        calories: 450,
+                        rating: 5.0,
+                        difficulty: 'Sulit',
+                        baseServings: 8,
+                        image: 'https://cdn.imagetourls.com/uploads/tyImg/153tTQKbr.jpg',
+                        description: 'Warisan kuliner Minangkabau yang diakui dunia. Daging sapi empuk dimasak perlahan dalam santan dan rempah hingga berminyak pekat.',
+                        nutrition: { protein: 32, fat: 28, carbs: 12 },
+                        ingredients: [
+                            { name: 'Daging Sapi (Paha/Gandik)', amount: 1000, unit: 'g' },
+                            { name: 'Santan Kental Kelapa Murni', amount: 1500, unit: 'ml' },
+                            { name: 'Bawang Merah', amount: 150, unit: 'g' },
+                            { name: 'Bawang Putih', amount: 50, unit: 'g' },
+                            { name: 'Cabai Merah Keriting', amount: 200, unit: 'g' },
+                            { name: 'Serai (memarkan)', amount: 3, unit: 'btg' },
+                            { name: 'Daun Jeruk Purut', amount: 5, unit: 'lbr' },
+                            { name: 'Lengkuas', amount: 4, unit: 'cm' },
+                            { name: 'Asam Kandis', amount: 2, unit: 'biji' }
+                        ],
+                        steps: [
+                            { instruction: 'Haluskan bawang merah, bawang putih, cabai merah, kunyit, dan lengkuas hingga menjadi bumbu halus pekat.', timerMinutes: 0 },
+                            { instruction: 'Didihkan santan bersama bumbu halus, serai, daun jeruk, dan asam kandis sambil terus diaduk agar santan tidak pecah.', timerMinutes: 30 },
+                            { instruction: 'Masukkan potongan daging sapi. Kecilkan api dan masak hingga santan berminyak dan berubah warna kecokelatan (Kalio).', timerMinutes: 60 },
+                            { instruction: 'Teruskan memasak dengan api sangat kecil sambil diaduk perlahan hingga bumbu menghitam dan meresap sempurna.', timerMinutes: 90 }
+                        ],
+                        secretTip: 'Gunakan kelapa tua sangrai (ambuku) untuk menambah kilap minyak dan aroma khas rendang yang tahan bertahan lama tanpa pengawet.'
+                    },
+                    {
+                        id: 2,
+                        title: 'Ayam Betutu Khas Bali',
+                        region: 'Bali & Nusa Tenggara',
+                        category: 'Makanan Utama',
+                        cookTime: 120,
+                        calories: 380,
+                        rating: 4.9,
+                        difficulty: 'Sedang',
+                        baseServings: 4,
+                        image: 'https://cdn.imagetourls.com/uploads/tyImg/bAUTEBMF.jpg',
+                        description: 'Ayam utuh yang dibumbui Basa Genep (bumbu lengkap khas Bali) lalu dibungkus daun pisang dan dikukus/dipanggang hingga bumbu meresap ke tulang.',
+                        nutrition: { protein: 38, fat: 22, carbs: 6 },
+                        ingredients: [
+                            { name: 'Ayam Kampung Utuh', amount: 1, unit: 'ekor' },
+                            { name: 'Bawang Merah (cangcang/cincang)', amount: 12, unit: 'siung' },
+                            { name: 'Bawang Putih', amount: 6, unit: 'siung' },
+                            { name: 'Kunyit Sangrai', amount: 4, unit: 'cm' },
+                            { name: 'Kencur', amount: 3, unit: 'cm' },
+                            { name: 'Lengkuas', amount: 3, unit: 'cm' },
+                            { name: 'Cabai Rawit Merah', amount: 15, unit: 'biji' },
+                            { name: 'Minyak Kelapa Asli', amount: 4, unit: 'sdm' }
+                        ],
+                        steps: [
+                            { instruction: 'Cincang halus semua bahan Basa Genep (bawang, kunyit, kencur, lengkuas, cabai, serai, terasi sangrai).', timerMinutes: 0 },
+                            { instruction: 'Campur Basa Genep dengan minyak kelapa dan garam, lumuri ke seluruh bagian luar dan dalam rongga ayam.', timerMinutes: 0 },
+                            { instruction: 'Bungkus ayam dengan daun pisang tebal, kemudian kukus selama 60 menit hingga daging empuk.', timerMinutes: 60 },
+                            { instruction: 'Panggang sebentar di atas bara api/oven selama 30 menit untuk mengeluarkan aroma wangi asap daun pisang.', timerMinutes: 30 }
+                        ],
+                        secretTip: 'Penggunaan minyak kelapa tandusan (minyak kelapa buatan rumah) memberikan cita rasa Bali otentik yang tidak bisa digantikan minyak goreng biasa.'
+                    },
+                    {
+                        id: 3,
+                        title: 'Soto Ayam Lamongan Gurih',
+                        region: 'Jawa',
+                        category: 'Sup & Soto',
+                        cookTime: 45,
+                        calories: 310,
+                        rating: 4.8,
+                        difficulty: 'Mudah',
+                        baseServings: 4,
+                        image: 'https://cdn.imagetourls.com/uploads/tyImg/Hr9qfIu9.jpg',
+                        description: 'Soto kuning khas Jawa Timur dengan kuah gurih beraroma ketumbar dan ditaburi Koya udang renyah yang melimpah.',
+                        nutrition: { protein: 26, fat: 14, carbs: 20 },
+                        ingredients: [
+                            { name: 'Daging Dada Ayam', amount: 500, unit: 'g' },
+                            { name: 'Koya Udang (Kerupuk + Udang Kering)', amount: 4, unit: 'sdm' },
+                            { name: 'Bawang Merah', amount: 8, unit: 'siung' },
+                            { name: 'Bawang Putih', amount: 5, unit: 'siung' },
+                            { name: 'Kunyit', amount: 3, unit: 'cm' },
+                            { name: 'Kemiri Sangrai', amount: 4, unit: 'biji' },
+                            { name: 'Tauge Segar & Soun', amount: 100, unit: 'g' }
+                        ],
+                        steps: [
+                            { instruction: 'Rebus ayam hingga empuk, tiriskan lalu suwir-suwir dagingnya. Sisihkan air kaldu ayam.', timerMinutes: 20 },
+                            { instruction: 'Tumis bumbu halus (bawang, kunyit, kemiri) hingga wangi lalu masukkan ke dalam air kaldu mendidih.', timerMinutes: 15 },
+                            { instruction: 'Tata soun, tauge, suwiran ayam di mangkuk. Siram kuah soto panas dan taburi bubuk Koya renyah.', timerMinutes: 0 }
+                        ],
+                        secretTip: 'Bubuk koya dibuat dari kerupuk udang kualitas bagus yang diulek bersama bawang putih goreng renyah.'
+                    },
+                    {
+                        id: 4,
+                        title: 'Rawon Daging Sapi Kluwek',
+                        region: 'Jawa',
+                        category: 'Sup & Soto',
+                        cookTime: 90,
+                        calories: 420,
+                        rating: 4.9,
+                        difficulty: 'Sedang',
+                        baseServings: 6,
+                        image: 'https://cdn.imagetourls.com/uploads/tyImg/Dq10MHBq.jpg',
+                        description: 'Sup daging sapi legendaris berwarna hitam pekat kaya rempah kluwek khas Jawa Timur, disajikan dengan tauge pendek dan sambal terasi.',
+                        nutrition: { protein: 30, fat: 24, carbs: 10 },
+                        ingredients: [
+                            { name: 'Daging Sapi Tetelan/Sandung Lamur', amount: 600, unit: 'g' },
+                            { name: 'Kluwek (ambil daging buah hitamnya)', amount: 5, unit: 'biji' },
+                            { name: 'Bawang Merah', amount: 10, unit: 'siung' },
+                            { name: 'Bawang Putih', amount: 6, unit: 'siung' },
+                            { name: 'Tauge Pendek (Kecambah rawon)', amount: 100, unit: 'g' },
+                            { name: 'Daun Jeruk Purut', amount: 4, unit: 'lbr' }
+                        ],
+                        steps: [
+                            { instruction: 'Rendam daging kluwek dengan air hangat lalu ulek halus bersama bumbu lainnya.', timerMinutes: 0 },
+                            { instruction: 'Rebus daging sapi potongan dadu hingga empuk.', timerMinutes: 45 },
+                            { instruction: 'Tumis bumbu kluwek halus hingga wangi harum, masukkan ke rebusan daging. Masak api kecil hingga meresap.', timerMinutes: 30 }
+                        ],
+                        secretTip: 'Pilih kluwek yang tidak pahit dengan cara dikocok (jika berbunyi kluk-kluk dan dagingnya hitam manis, berarti bagus).'
+                    },
+                    {
+                        id: 5,
+                        title: 'Soto Makassar Rempah',
+                        region: 'Sulawesi',
+                        category: 'Sup & Soto',
+                        cookTime: 90,
+                        calories: 390,
+                        rating: 4.8,
+                        difficulty: 'Sedang',
+                        baseServings: 6,
+                        image: 'https://cdn.imagetourls.com/uploads/tyImg/wBSyXgAL.jpg',
+                        description: 'Hidangan hidangan khas Sulawesi Selatan berupa kuah kaldu kaya kacang tanah sangrai gurih dipadu daging sapi segar dan buras.',
+                        nutrition: { protein: 34, fat: 22, carbs: 15 },
+                        ingredients: [
+                            { name: 'Daging Sapi & Jeroan', amount: 500, unit: 'g' },
+                            { name: 'Kacang Tanah Sangrai (haluskan)', amount: 150, unit: 'g' },
+                            { name: 'Air Cucian Beras Pertama (tajin)', amount: 1500, unit: 'ml' },
+                            { name: 'Serai & Lengkuas', amount: 3, unit: 'btg' }
+                        ],
+                        steps: [
+                            { instruction: 'Rebus daging dalam air cucian beras (tajin) hingga empuk.', timerMinutes: 45 },
+                            { instruction: 'Haluskan bumbu rempah dan kacang tanah sangrai, tumis hingga harum lalu masukkan ke kuah rebusan.', timerMinutes: 30 }
+                        ],
+                        secretTip: 'Penggunaan air cucian beras pertama membuat kuah Coto kental alami dan gurih meresap.'
+                    },
+                    {
+                        id: 6,
+                        title: 'Sambal Matah Khas Bali',
+                        region: 'Bali & Nusa Tenggara',
+                        category: 'Sambal & Tumis',
+                        cookTime: 15,
+                        calories: 90,
+                        rating: 4.9,
+                        difficulty: 'Mudah',
+                        baseServings: 4,
+                        image: 'https://cdn.imagetourls.com/uploads/tyImg/yXvWketH.jpg',
+                        description: 'Sambal iris mentah khas Bali beraroma serai segar, daun jeruk, dan siraman minyak kelapa panas.',
+                        nutrition: { protein: 1, fat: 8, carbs: 3 },
+                        ingredients: [
+                            { name: 'Bawang Merah (iris tipis)', amount: 15, unit: 'siung' },
+                            { name: 'Cabai Rawit Merah (iris)', amount: 10, unit: 'biji' },
+                            { name: 'Batang Serai Bagian Putih (iris halus)', amount: 3, unit: 'btg' },
+                            { name: 'Daun Jeruk Purut (buang tulang, iris)', amount: 5, unit: 'lbr' },
+                            { name: 'Terasi Bakar', amount: 1/2, unit: 'sdt' },
+                            { name: 'Minyak Kelapa Panas', amount: 3, unit: 'sdm' },
+                            { name: 'Jeruk Limau', amount: 1, unit: 'biji' }
+                        ],
+                        steps: [
+                            { instruction: 'Campur semua bahan irisan dalam wadah. Remat perlahan dengan tangan bersih.', timerMinutes: 0 },
+                            { instruction: 'Siram dengan minyak kelapa yang benar-benar panas dan beri perasan jeruk limau.', timerMinutes: 0 }
+                        ],
+                        secretTip: 'Gunakan hanya bagian putih batang serai yang paling muda agar tekstur renyah dan tidak berserat kasar.'
+                    },
+                    {
+                        id: 7,
+                        title: 'Es Teler Spesial Nusantara',
+                        region: 'Jawa',
+                        category: 'Minuman Tradisional',
+                        cookTime: 15,
+                        calories: 210,
+                        rating: 4.9,
+                        difficulty: 'Mudah',
+                        baseServings: 4,
+                        image: 'https://cdn.imagetourls.com/uploads/tyImg/XqOHlLRi.jpg',
+                        description: 'Es penutup menyegarkan berisi nangka wangi, alpukat mentega lengket, daging kelapa muda, disiram sirup dan krimer kental manis.',
+                        nutrition: { protein: 3, fat: 8, carbs: 32 },
+                        ingredients: [
+                            { name: 'Alpukat Mentega Matang', amount: 2, unit: 'buah' },
+                            { name: 'Nangka Wangi (iris dadu)', amount: 6, unit: 'biji' },
+                            { name: 'Daging Kelapa Muda', amount: 200, unit: 'g' },
+                            { name: 'Santan Matang & Es Serut', amount: 200, unit: 'ml' },
+                            { name: 'Krimer Kental Manis', amount: 5, unit: 'sdm' }
+                        ],
+                        steps: [
+                            { instruction: 'Kerok buah alpukat dan tata bersama nangka serta kelapa muda di mangkuk saji.', timerMinutes: 0 },
+                            { instruction: 'Beri es serut, siram kuah santan dan krimer kental manis di atasnya.', timerMinutes: 0 }
+                        ],
+                        secretTip: 'Tambahkan sedikit perasan air kelapa murni ke dalam santan untuk menjaga kesegaran dingin alami.'
+                    },
+                    {
+                        id: 8,
+                        title: 'Ayam Woku Manado Pedas',
+                        region: 'Sulawesi',
+                        category: 'Makanan Utama',
+                        cookTime: 40,
+                        calories: 340,
+                        rating: 4.8,
+                        difficulty: 'Mudah',
+                        baseServings: 4,
+                        image: 'https://cdn.imagetourls.com/uploads/tyImg/e6owwkPn.jpg',
+                        description: 'Ayam bumbu woku belanga khas Manado kaya daun kemangi wangi, daun pandan, dan rasa pedas menggugah selera.',
+                        nutrition: { protein: 32, fat: 18, carbs: 8 },
+                        ingredients: [
+                            { name: 'Daging Ayam Potong', amount: 700, unit: 'g' },
+                            { name: 'Daun Kemangi Segar', amount: 2, unit: 'ikat' },
+                            { name: 'Daun Pandan (iris halus)', amount: 1, unit: 'lbr' },
+                            { name: 'Daun Kunyit (iris halus)', amount: 1, unit: 'lbr' },
+                            { name: 'Cabai Rawit Merah', amount: 15, unit: 'biji' }
+                        ],
+                        steps: [
+                            { instruction: 'Tumis bumbu halus hingga wangi. Masukkan daun pandan, daun kunyit, dan serai.', timerMinutes: 10 },
+                            { instruction: 'Masukkan ayam, masak hingga berubah warna lalu beri sedikit air.', timerMinutes: 20 },
+                            { instruction: 'Sesaat sebelum diangkat, masukkan kemangi melimpah dan air perasan jeruk nipis.', timerMinutes: 5 }
+                        ],
+                        secretTip: 'Masukkan daun kemangi di detik terakhir sebelum api dimatikan agar aromanya tidak hilang menguap.'
+                    }
+                ]);
+
+                // Featured Recipe
+                const featuredRecipe = computed(() => recipes.value[0]);
+
+                // Computed Filters
+                const filteredRecipes = computed(() => {
+                    return recipes.value.filter(r => {
+                        if (navTab.value === 'favorit' && !favorites.value.includes(r.id)) return false;
+
+                        if (searchQuery.value) {
+                            const q = searchQuery.value.toLowerCase();
+                            if (!r.title.toLowerCase().includes(q) && !r.region.toLowerCase().includes(q) && !r.description.toLowerCase().includes(q)) return false;
+                        }
+
+                        if (selectedRegion.value !== 'Semua' && r.region !== selectedRegion.value) return false;
+                        if (selectedCategory.value !== 'Semua' && r.category !== selectedCategory.value) return false;
+                        if (selectedDifficulty.value !== 'Semua' && r.difficulty !== selectedDifficulty.value) return false;
+
+                        if (selectedTime.value === 'fast' && r.cookTime >= 30) return false;
+                        if (selectedTime.value === 'medium' && (r.cookTime < 30 || r.cookTime > 60)) return false;
+                        if (selectedTime.value === 'slow' && r.cookTime <= 60) return false;
+
+                        return true;
+                    }).sort((a, b) => {
+                        if (sortBy.value === 'rating') return b.rating - a.rating;
+                        if (sortBy.value === 'fastest') return a.cookTime - b.cookTime;
+                        return b.id - a.id;
+                    });
+                });
+
+                // Pantry Ingredient Matcher Logic
+                const matchedRecipes = computed(() => {
+                    return recipes.value.map(r => {
+                        const totalCount = r.ingredients.length;
+                        let matchedCount = 0;
+                        
+                        r.ingredients.forEach(ing => {
+                            const nameLower = ing.name.toLowerCase();
+                            const matched = selectedPantryIngredients.value.some(p => nameLower.includes(p.toLowerCase()));
+                            if (matched) matchedCount++;
+                        });
+
+                        const matchPercent = Math.round((matchedCount / totalCount) * 100);
+                        return { recipe: r, totalCount, matchedCount, matchPercent };
+                    }).sort((a, b) => b.matchPercent - a.matchPercent);
+                });
+
+                const resetFilters = () => {
+                    searchQuery.value = '';
+                    selectedRegion.value = 'Semua';
+                    selectedCategory.value = 'Semua';
+                    selectedDifficulty.value = 'Semua';
+                    selectedTime.value = 'Semua';
+                    sortBy.value = 'popular';
+                };
+
+                const selectPresetPantry = (type) => {
+                    if (type === 'bumbuDesa') {
+                        selectedPantryIngredients.value = ['Bawang Merah', 'Bawang Putih', 'Cabai', 'Serai', 'Kunyit', 'Lengkuas', 'Daun Jeruk', 'Daging Ayam'];
+                        addToast('Preset Bumbu Desa Diterapkan!', 'success');
+                    }
+                };
+
+                // Favorites logic
+                const toggleFavorite = (id) => {
+                    const idx = favorites.value.indexOf(id);
+                    if (idx > -1) {
+                        favorites.value.splice(idx, 1);
+                        addToast('Dihapus dari resep favorit', 'info');
+                    } else {
+                        favorites.value.push(id);
+                        addToast('Disimpan ke resep favorit ❤️', 'success');
+                    }
+                    localStorage.setItem('dn_favs', JSON.stringify(favorites.value));
+                };
+
+                const isFavorite = (id) => favorites.value.includes(id);
+
+                const toggleFavoritesTab = () => {
+                    if (navTab.value === 'favorit') navTab.value = 'jelajah';
+                    else navTab.value = 'favorit';
+                };
+
+                // Recipe Modal Actions & Scaler
+                const openRecipeModal = (recipe) => {
+                    activeRecipeModal.value = recipe;
+                    servingMultiplier.value = recipe.baseServings;
+                    recipeChecklist.value = {};
+                    activeTimers.value = {};
+                };
+
+                const calculateIngredientAmount = (baseAmount, baseServings) => {
+                    const calculated = (baseAmount / baseServings) * servingMultiplier.value;
+                    if (Number.isInteger(calculated)) return calculated;
+                    return calculated.toFixed(1);
+                };
+
+                // Timers
+                const toggleStepTimer = (stepIdx, minutes) => {
+                    if (!activeTimers.value[stepIdx]) {
+                        activeTimers.value[stepIdx] = {
+                            timeLeft: minutes * 60,
+                            running: true,
+                            interval: null,
+                            finished: false
+                        };
+
+                        activeTimers.value[stepIdx].interval = setInterval(() => {
+                            if (activeTimers.value[stepIdx].timeLeft > 0) {
+                                activeTimers.value[stepIdx].timeLeft--;
+                            } else {
+                                clearInterval(activeTimers.value[stepIdx].interval);
+                                activeTimers.value[stepIdx].running = false;
+                                activeTimers.value[stepIdx].finished = true;
+                                playTimerAlarmSound();
+                                addToast(`Timer langkah ${stepIdx + 1} Selesai!`, 'success');
+                            }
+                        }, 1000);
+                    } else {
+                        clearInterval(activeTimers.value[stepIdx].interval);
+                        delete activeTimers.value[stepIdx];
+                    }
+                };
+
+                const formatTimerDisplay = (seconds) => {
+                    const m = Math.floor(seconds / 60);
+                    const s = seconds % 60;
+                    return `${m}:${s < 10 ? '0' : ''}${s}`;
+                };
+
+                // Shopping List
+                const addAllToShoppingList = (recipe) => {
+                    let addedCount = 0;
+                    recipe.ingredients.forEach(ing => {
+                        const amt = calculateIngredientAmount(ing.amount, recipe.baseServings);
+                        shoppingList.value.push({
+                            name: ing.name,
+                            amount: amt,
+                            unit: ing.unit,
+                            checked: false
+                        });
+                        addedCount++;
+                    });
+                    localStorage.setItem('dn_shop', JSON.stringify(shoppingList.value));
+                    addToast(`${addedCount} bahan ditambahkan ke Daftar Belanja!`, 'success');
+                };
+
+                const removeShoppingItem = (idx) => {
+                    shoppingList.value.splice(idx, 1);
+                    localStorage.setItem('dn_shop', JSON.stringify(shoppingList.value));
+                };
+
+                const copyShoppingListToWA = () => {
+                    let text = `*Daftar Belanja Bumbu Pasar - WarisanRasa*\n\n`;
+                    shoppingList.value.forEach((item, i) => {
+                        text += `${i + 1}. ${item.name} (${item.amount} ${item.unit})\n`;
+                    });
+                    text += `\nSiap belanja ke pasar tradisional! 🛒`;
+                    const link = `https://wa.me/?text=${encodeURIComponent(text)}`;
+                    window.open(link, '_blank');
+                };
+
+                // User Recipe Form Submit
+                const newRecipeForm = ref({
+                    title: '',
+                    region: '',
+                    category: 'Makanan Utama',
+                    ingredientsText: '',
+                    stepsText: ''
+                });
+
+                const submitUserRecipe = () => {
+                    recipes.value.unshift({
+                        id: Date.now(),
+                        title: newRecipeForm.value.title,
+                        region: newRecipeForm.value.region,
+                        category: newRecipeForm.value.category,
+                        cookTime: 30,
+                        calories: 300,
+                        rating: 5.0,
+                        difficulty: 'Mudah',
+                        baseServings: 4,
+                        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+                        description: 'Resep warisan keluarga yang dibagikan oleh komunitas WarisanRasa.',
+                        nutrition: { protein: 20, fat: 15, carbs: 20 },
+                        ingredients: newRecipeForm.value.ingredientsText.split(',').map(i => ({ name: i.trim(), amount: 1, unit: 'secukupnya' })),
+                        steps: newRecipeForm.value.stepsText.split('\n').map(s => ({ instruction: s, timerMinutes: 0 })),
+                        secretTip: 'Dibuat dengan cinta resep warisan keluarga.'
+                    });
+
+                    isSubmitRecipeOpen.value = false;
+                    newRecipeForm.value = { title: '', region: '', category: 'Makanan Utama', ingredientsText: '', stepsText: '' };
+                    addToast('Resep keluarga berhasil diterbitkan!', 'success');
+                };
+
+                return {
+                    toasts,
+                    navTab,
+                    searchQuery,
+                    selectedRegion,
+                    selectedCategory,
+                    selectedDifficulty,
+                    selectedTime,
+                    sortBy,
+                    regions,
+                    favorites,
+                    shoppingList,
+                    activeRecipeModal,
+                    servingMultiplier,
+                    recipeChecklist,
+                    activeTimers,
+                    isShoppingDrawerOpen,
+                    isSubmitRecipeOpen,
+                    selectedPantryIngredients,
+                    pantryCategories,
+                    spices,
+                    recipes,
+                    featuredRecipe,
+                    filteredRecipes,
+                    matchedRecipes,
+                    newRecipeForm,
+                    resetFilters,
+                    selectPresetPantry,
+                    toggleFavorite,
+                    isFavorite,
+                    toggleFavoritesTab,
+                    openRecipeModal,
+                    calculateIngredientAmount,
+                    toggleStepTimer,
+                    formatTimerDisplay,
+                    addAllToShoppingList,
+                    removeShoppingItem,
+                    copyShoppingListToWA,
+                    submitUserRecipe
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
