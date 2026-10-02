@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honda Beat Pop - Trendy, Lincah & Irit</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            accent: '#f59e0b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Sticky Navigation Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-200/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#home" class="flex items-center gap-2 group">
+                    <div class="bg-gradient-to-tr from-brand-600 to-sky-400 text-white font-extrabold text-xl px-3 py-1.5 rounded-xl shadow-md group-hover:scale-105 transition-transform">
+                        HONDA
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-xl leading-none tracking-tight text-slate-900">BeAT <span class="text-brand-600">POP</span></span>
+                        <span class="text-[10px] font-medium text-slate-500 tracking-wider uppercase">eSP Series</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
+                    <a href="#home" class="hover:text-brand-600 transition-colors py-2">Beranda</a>
+                    <a href="#fitur" class="hover:text-brand-600 transition-colors py-2">Fitur Utama</a>
+                    <a href="#varian" class="hover:text-brand-600 transition-colors py-2">Pilihan Warna</a>
+                    <a href="#spesifikasi" class="hover:text-brand-600 transition-colors py-2">Spesifikasi</a>
+                    <a href="#simulasi" class="hover:text-brand-600 transition-colors py-2">Simulasi Kredit</a>
+                    <a href="#kontak" class="hover:text-brand-600 transition-colors py-2">Kontak</a>
+                </nav>
+
+                <!-- Desktop CTA Button -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#simulasi" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 transition-all duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-motorcycle text-xs"></i>
+                        <span>Beli Sekarang</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" type="button" class="text-slate-600 hover:text-slate-900 p-2 rounded-lg focus:outline-none" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-xl">
+            <a href="#home" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-brand-600">Beranda</a>
+            <a href="#fitur" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-brand-600">Fitur Utama</a>
+            <a href="#varian" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-brand-600">Pilihan Warna</a>
+            <a href="#spesifikasi" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-brand-600">Spesifikasi</a>
+            <a href="#simulasi" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-brand-600">Simulasi Kredit</a>
+            <a href="#kontak" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-brand-600">Kontak</a>
+            <div class="pt-2">
+                <a href="#simulasi" class="w-full bg-brand-600 text-white text-center font-semibold px-4 py-3 rounded-xl block shadow-md">
+                    Beli Sekarang
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative overflow-hidden pt-8 pb-20 lg:pt-16 lg:pb-28 bg-gradient-to-b from-sky-50 via-slate-50 to-white">
+        <!-- Background decorative elements -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -left-24 w-80 h-80 bg-sky-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Text Column -->
+                <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-800 text-xs font-bold px-3.5 py-1.5 rounded-full border border-brand-200 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                        Honda BeAT POP eSP Series
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight tracking-tight">
+                        Honda Beat Pop eSP - <br class="hidden sm:inline" />
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-sky-500">Lincah, Trendy & Super Irit!</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Dirancang khusus untuk gaya hidup anak muda & pelajar yang dinamis. Nikmati kelincahan berkendara perkotaan dengan mesin eSP 110cc yang super irit bbm serta tampilan body stylish modern.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#varian" class="w-full sm:w-auto text-center bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-500/30 hover:shadow-brand-500/50 transition-all duration-300 transform hover:-translate-y-0.5">
+                            Lihat Varian
+                        </a>
+                        <a href="#simulasi" class="w-full sm:w-auto text-center bg-white hover:bg-slate-100 text-slate-800 font-bold px-8 py-4 rounded-xl border border-slate-200 shadow-sm transition-all duration-200">
+                            Simulasi Kredit
+                        </a>
+                    </div>
+
+                    <!-- Highlight Badges -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80 max-w-lg mx-auto lg:mx-0">
+                        <div class="text-center lg:text-left">
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-900">59 KM/L</p>
+                            <p class="text-xs text-slate-500 font-medium">Konsumsi BBM (ECE R40)</p>
+                        </div>
+                        <div class="text-center lg:text-left border-x border-slate-200 px-2">
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-900">110 cc</p>
+                            <p class="text-xs text-slate-500 font-medium">Mesin eSP PGM-FI</p>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <p class="text-xl sm:text-2xl font-extrabold text-slate-900">90 KG</p>
+                            <p class="text-xs text-slate-500 font-medium">Bodi Ringan & Lincah</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image Visual Showcase Card -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        <!-- Backdrop Glow Card -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-500 to-sky-300 rounded-3xl transform rotate-3 scale-95 opacity-20 blur-lg"></div>
+                        
+                        <div class="relative bg-white p-4 sm:p-6 rounded-3xl shadow-2xl border border-slate-100">
+                            <!-- Image Display with Fallback -->
+                            <div class="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden group bg-slate-100">
+                                <img src="https://cdn.imagetourls.com/uploads/tyImg/cP5oe5Gv.jpg" 
+                                     alt="Honda Beat Pop Scooter" 
+                                     class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                     onerror="this.onerror=null; this.src='https://placehold.co/600x400/0284c7/ffffff?text=Honda+Beat+Pop';">
+
+                                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-sm text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-shield-halved text-brand-600"></i> CBS & ISS Tech
+                                </div>
+                                <div class="absolute bottom-4 right-4 bg-slate-900/90 text-white backdrop-blur-md px-4 py-2 rounded-full shadow-md text-xs sm:text-sm font-bold">
+                                    Rp 18.200.000*
+                                </div>
+                            </div>
+
+                            <div class="mt-4 flex items-center justify-between text-sm px-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></div>
+                                    <span class="font-semibold text-slate-700">Unit Ready Stock</span>
+                                </div>
+                                <span class="text-xs text-slate-400">*Harga OTR Estimasi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section id="fitur" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Keunggulan Utama</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Fitur Canggih Pendukung Aktivitasmu</p>
+                <p class="mt-4 text-slate-600 text-base">Honda Beat Pop dilengkapi beragam fitur modern yang dirancang khusus untuk kemudahan, efisiensi, dan kenyamanan sehari-hari.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-slate-50 hover:bg-white p-8 rounded-2xl border border-slate-100 hover:border-brand-200 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1 group">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-gauge-high"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Mesin eSP 110cc</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Irit & Performa Responsif. Teknologi eSP (enhanced Smart Power) menghasilkan akselerasi bertenaga, irit bbm, dan ramah lingkungan.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-slate-50 hover:bg-white p-8 rounded-2xl border border-slate-100 hover:border-brand-200 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1 group">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">CBS & ISS System</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Pengereman Combi Brake System (CBS) yang seimbang serta Idling Stop System (ISS) mematikan mesin otomatis saat berhenti 3 detik.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-slate-50 hover:bg-white p-8 rounded-2xl border border-slate-100 hover:border-brand-200 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1 group">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-feather"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Desain Compact & Trendy</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Stylish & ringan untuk perkotaan. Bodi yang tergolong ringkas memudahkan manuver di jalan padat dan parkir sempit.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-slate-50 hover:bg-white p-8 rounded-2xl border border-slate-100 hover:border-brand-200 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-1 group">
+                    <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-key"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Bagasi & Secure Key</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Praktis & Aman. Luas bagasi serbaguna 11 Liter serta sistem pengunci bermagnet (Secure Key Shutter) mencegah pencurian.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Color Variants Section -->
+    <section id="varian" class="py-20 bg-slate-100/70 border-y border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Pilihan Varian</h2>
+                <p class="text-3xl font-extrabold text-slate-900 tracking-tight">Ekspresikan Gaya Warnamu</p>
+                <p class="text-slate-600 mt-2 text-sm">Pilih warna Honda Beat Pop favorit yang sesuai dengan karaktermu.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Color Interactive Display -->
+                <div class="lg:col-span-7 flex flex-col items-center justify-center">
+                    <div class="w-full h-64 sm:h-80 bg-slate-50 rounded-2xl p-6 flex items-center justify-center relative overflow-hidden transition-all duration-500" id="color-preview-box">
+                        <div class="absolute inset-0 bg-gradient-to-tr opacity-20 transition-all duration-500" id="color-bg-gradient"></div>
+                        
+                        <!-- Visual Scooter Art with dynamic color changes -->
+                        <svg class="w-full h-full max-h-72 transition-transform duration-300" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="160" cy="280" r="60" fill="#334155" stroke="#64748b" stroke-width="10"/>
+                            <circle cx="160" cy="280" r="25" fill="#f8fafc"/>
+                            <circle cx="440" cy="280" r="60" fill="#334155" stroke="#64748b" stroke-width="10"/>
+                            <circle cx="440" cy="280" r="25" fill="#f8fafc"/>
+                            
+                            <!-- Dynamic SVG Parts -->
+                            <path d="M160 280 L230 180 L350 180 L440 280" stroke="#475569" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path id="svg-body-color" d="M220 180 L260 100 L380 90 L420 160 L350 240 L220 240 Z" fill="#0284c7" class="transition-colors duration-500"/>
+                            <path d="M260 100 L210 90 L200 70" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+                            <path id="svg-accent-color" d="M330 90 L420 90 L390 140 Z" fill="#38bdf8" class="transition-colors duration-500"/>
+                            <path d="M250 130 Q310 110 380 135 L370 155 Q310 135 250 150 Z" fill="#0f172a"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Color Selection Control Panel -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span id="variant-badge" class="inline-block px-3 py-1 text-xs font-bold rounded-full bg-blue-100 text-blue-800 mb-2">Cool White</span>
+                        <h3 id="variant-title" class="text-2xl font-bold text-slate-900">Harmony Cool White</h3>
+                        <p id="variant-desc" class="text-slate-600 text-sm mt-2 leading-relaxed">
+                            Tampil bersih, elegan, dan simpel. Sangat cocok untuk kamu yang menyukai konsep minimalis modern.
+                        </p>
+                    </div>
+
+                    <!-- Color Swatches -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Pilih Varian Warna</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="selectColor('white')" class="color-btn flex items-center gap-3 p-3 rounded-xl border-2 border-brand-600 bg-slate-50 text-left transition-all" data-color="white">
+                                <span class="w-6 h-6 rounded-full bg-slate-100 border border-slate-300 shadow-sm flex-shrink-0"></span>
+                                <span class="text-xs font-bold text-slate-800">Cool White</span>
+                            </button>
+
+                            <button onclick="selectColor('blue')" class="color-btn flex items-center gap-3 p-3 rounded-xl border-2 border-transparent hover:border-slate-300 bg-slate-50 text-left transition-all" data-color="blue">
+                                <span class="w-6 h-6 rounded-full bg-blue-600 shadow-sm flex-shrink-0"></span>
+                                <span class="text-xs font-bold text-slate-800">Dynamic Blue</span>
+                            </button>
+
+                            <button onclick="selectColor('black')" class="color-btn flex items-center gap-3 p-3 rounded-xl border-2 border-transparent hover:border-slate-300 bg-slate-50 text-left transition-all" data-color="black">
+                                <span class="w-6 h-6 rounded-full bg-slate-900 shadow-sm flex-shrink-0"></span>
+                                <span class="text-xs font-bold text-slate-800">Comic Black</span>
+                            </button>
+
+                            <button onclick="selectColor('red')" class="color-btn flex items-center gap-3 p-3 rounded-xl border-2 border-transparent hover:border-slate-300 bg-slate-50 text-left transition-all" data-color="red">
+                                <span class="w-6 h-6 rounded-full bg-red-600 shadow-sm flex-shrink-0"></span>
+                                <span class="text-xs font-bold text-slate-800">Acoustic Red</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span class="text-xs text-slate-500 font-medium">Tipe: CBS-ISS Edition</span>
+                        <a href="#simulasi" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1">
+                            Cek Angsuran Varian Ini <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications Section -->
+    <section id="spesifikasi" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-600 mb-2">Spesifikasi Teknik</h2>
+                <p class="text-3xl font-extrabold text-slate-900 tracking-tight">Detail Performa Honda Beat Pop</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Specs Card 1: Mesin & Performa -->
+                <div class="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/80">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">Mesin & Performa</h3>
+                    </div>
+
+                    <div class="divide-y divide-slate-200 text-sm">
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Tipe Mesin</span>
+                            <span class="font-semibold text-slate-800">4-Langkah, SOHC dengan Pendingin Udara, eSP</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Sistem Suplai Bahan Bakar</span>
+                            <span class="font-semibold text-slate-800">Injeksi (PGM-FI)</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Kapasitas Langkah</span>
+                            <span class="font-semibold text-slate-800">108.2 cc</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Daya Maksimum</span>
+                            <span class="font-semibold text-slate-800">6.38 kW (8.68 PS) / 7.500 rpm</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Torsi Maksimum</span>
+                            <span class="font-semibold text-slate-800">9.01 Nm (0.92 kgf.m) / 6.500 rpm</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Tipe Transmisi</span>
+                            <span class="font-semibold text-slate-800">Otomatis, V-Matic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specs Card 2: Rangka & Dimensi -->
+                <div class="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/80">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-ruler-combined"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900">Rangka & Dimensi</h3>
+                    </div>
+
+                    <div class="divide-y divide-slate-200 text-sm">
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Tipe Rangka</span>
+                            <span class="font-semibold text-slate-800">Tulang Punggung (eSAF / Steel)</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Rem Depan</span>
+                            <span class="font-semibold text-slate-800">Cakram Hidrolik dengan Piston Tunggal</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Rem Belakang</span>
+                            <span class="font-semibold text-slate-800">Tromol (Combi Brake System)</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Kapasitas Tangki BBM</span>
+                            <span class="font-semibold text-slate-800">3.7 Liter</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Berat Kosong</span>
+                            <span class="font-semibold text-slate-800">90 kg</span>
+                        </div>
+                        <div class="py-3 flex justify-between">
+                            <span class="text-slate-500">Kapasitas Bagasi</span>
+                            <span class="font-semibold text-slate-800">11 Liter</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Credit Calculator Section -->
+    <section id="simulasi" class="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-brand-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="bg-brand-500/20 text-brand-300 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-brand-500/30">Kalkulator Pintar</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-3">Simulasi Kredit Honda Beat Pop</h2>
+                <p class="text-slate-300 mt-2 text-sm">Hitung estimasi angsuran bulanan sesuai budget dan DP yang Anda inginkan.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-6 sm:p-10 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                
+                <!-- Inputs Form -->
+                <div class="md:col-span-7 space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Harga OTR Motor (Estimasi)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-3.5 text-slate-400 font-bold text-sm">Rp</span>
+                            <input type="text" id="input-otr" value="18.200.000" readonly class="w-full bg-slate-900/60 border border-slate-700 rounded-xl py-3 pl-12 pr-4 text-white font-bold focus:outline-none focus:border-brand-500">
+                        </div>
+                    </div>
+
+                    <!-- DP Slider / Selection -->
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs font-bold text-slate-300 uppercase tracking-wider">Uang Muka (DP)</label>
+                            <span id="dp-value-text" class="text-sm font-extrabold text-brand-400">Rp 3.640.000 (20%)</span>
+                        </div>
+                        <input type="range" id="dp-range" min="15" max="50" step="5" value="20" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                        <div class="flex justify-between text-[11px] text-slate-400 mt-1">
+                            <span>Min 15%</span>
+                            <span>30%</span>
+                            <span>Max 50%</span>
+                        </div>
+                    </div>
+
+                    <!-- Tenor Options -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Jangka Waktu (Tenor)</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button type="button" onclick="setTenor(12)" class="tenor-btn border border-brand-500 bg-brand-600/30 text-white font-bold py-3 rounded-xl text-center text-sm transition-all" data-tenor="12">
+                                12 Bulan
+                            </button>
+                            <button type="button" onclick="setTenor(24)" class="tenor-btn border border-slate-700 bg-slate-800/60 text-slate-300 hover:border-slate-500 font-bold py-3 rounded-xl text-center text-sm transition-all" data-tenor="24">
+                                24 Bulan
+                            </button>
+                            <button type="button" onclick="setTenor(36)" class="tenor-btn border border-slate-700 bg-slate-800/60 text-slate-300 hover:border-slate-500 font-bold py-3 rounded-xl text-center text-sm transition-all" data-tenor="36">
+                                36 Bulan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Display Card -->
+                <div class="md:col-span-5 bg-slate-900/90 border border-slate-700/80 rounded-2xl p-6 text-center space-y-6">
+                    <div>
+                        <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Estimasi Cicilan</span>
+                        <p id="monthly-installment" class="text-3xl sm:text-4xl font-extrabold text-brand-400 mt-2">Rp 1.435.000</p>
+                        <span class="text-[11px] text-slate-400">/ bulan</span>
+                    </div>
+
+                    <div class="space-y-2 text-xs text-slate-300 border-t border-slate-800 pt-4">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Total DP (Uang Muka):</span>
+                            <span id="summary-dp" class="font-bold">Rp 3.640.000</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Tenor PILIHAN:</span>
+                            <span id="summary-tenor" class="font-bold">12 Bulan</span>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="handleBooking()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-brand-500/30 transition-all text-sm">
+                        Ajukan Kredit Sekarang
+                    </button>
+                    <p class="text-[10px] text-slate-500 leading-tight">*Simulasi ini bersifat estimasi. Syarat & ketentuan berlaku sesuai kebijakan pihak leasing partner.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
+                
+                <!-- Brand Info -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="bg-brand-600 text-white font-extrabold text-lg px-2.5 py-1 rounded-lg">
+                            HONDA
+                        </div>
+                        <span class="font-extrabold text-xl text-white">BeAT <span class="text-brand-500">POP</span></span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+                        Motor matic pilihan generasi muda. Hadir dengan teknologi canggih eSP, hemat bahan bakar, dan bodi stylish lincah untuk menemani setiap petualangan perkotaanmu.
+                    </p>
+                    <div class="flex space-x-4 text-slate-400 pt-2">
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-900 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-900 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-900 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-900 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">Navigasi</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#home" class="hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="#fitur" class="hover:text-white transition-colors">Fitur Unggulan</a></li>
+                        <li><a href="#varian" class="hover:text-white transition-colors">Pilihan Warna</a></li>
+                        <li><a href="#spesifikasi" class="hover:text-white transition-colors">Spesifikasi Teknik</a></li>
+                    </ul>
+                </div>
+
+                <!-- Product Lineup -->
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">Model Lainnya</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">All New BeAT Street</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Honda Scoopy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Honda Genio</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Honda Vario 125</a></li>
+                    </ul>
+                </div>
+
+                <!-- Dealer Contact -->
+                <div>
+                    <h4 class="text-white font-bold text-sm mb-4">Kontak Dealer</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-location-dot text-brand-500 mt-1"></i>
+                            <span>Jl. Jendral Sudirman No. 123, Jakarta Selatan</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-phone text-brand-500"></i>
+                            <span>0800-140-1508 (Call Center)</span>
+                        </li>
+                        <li class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-envelope text-brand-500"></i>
+                            <span>info@honda-beatpop.id</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-slate-900 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+                <p>&copy; 2026 Honda BeAT Pop. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-slate-400">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-slate-400">Syarat & Ketentuan</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Notification Modal (Replacement for alert) -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl border border-slate-100 transform scale-95 transition-transform duration-300" id="modal-content">
+            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-xl mb-4 mx-auto">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 text-center mb-2">Pengajuan Terkirim!</h3>
+            <p id="modal-message" class="text-sm text-slate-600 text-center mb-6 leading-relaxed">
+                Pengajuan kredit Anda telah kami terima.
+            </p>
+            <button onclick="closeModal()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-colors text-sm">
+                Tutup
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom JavaScript Logic -->
+    <script>
+        // --- 1. Mobile Menu Toggle ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if(mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            }
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // --- 2. Interactive Color Variant Switcher ---
+        const variantData = {
+            white: {
+                title: "Harmony Cool White",
+                badge: "Cool White",
+                desc: "Tampil bersih, elegan, dan simpel. Sangat cocok untuk kamu yang menyukai konsep minimalis modern di perkotaan.",
+                bodyColor: "#0284c7",
+                accentColor: "#38bdf8",
+                badgeClass: "bg-blue-100 text-blue-800"
+            },
+            blue: {
+                title: "Groovy Dynamic Blue",
+                badge: "Dynamic Blue",
+                desc: "Warna biru cerah yang penuh energi dan sporty. Cocok untuk pengendara yang percaya diri dan aktif.",
+                bodyColor: "#2563eb",
+                accentColor: "#60a5fa",
+                badgeClass: "bg-blue-100 text-blue-800"
+            },
+            black: {
+                title: "Comic Black Matte",
+                badge: "Comic Black",
+                desc: "Kombinasi warna hitam tangguh yang memberikan kesan tegas, misterius, dan tetap stylish saat melaju.",
+                bodyColor: "#0f172a",
+                accentColor: "#475569",
+                badgeClass: "bg-slate-200 text-slate-800"
+            },
+            red: {
+                title: "Acoustic Red Flash",
+                badge: "Acoustic Red",
+                desc: "Sentuhan merah berani dan atraktif untuk menarik perhatian di jalanan kota.",
+                bodyColor: "#dc2626",
+                accentColor: "#f87171",
+                badgeClass: "bg-red-100 text-red-800"
+            }
+        };
+
+        function selectColor(colorKey) {
+            const data = variantData[colorKey];
+            if (!data) return;
+
+            // Update Text
+            document.getElementById('variant-title').innerText = data.title;
+            document.getElementById('variant-desc').innerText = data.desc;
+            
+            const badge = document.getElementById('variant-badge');
+            badge.innerText = data.badge;
+            badge.className = `inline-block px-3 py-1 text-xs font-bold rounded-full mb-2 ${data.badgeClass}`;
+
+            // Update SVG Colors
+            document.getElementById('svg-body-color').setAttribute('fill', data.bodyColor);
+            document.getElementById('svg-accent-color').setAttribute('fill', data.accentColor);
+
+            // Active button UI highlight
+            document.querySelectorAll('.color-btn').forEach(btn => {
+                if (btn.dataset.color === colorKey) {
+                    btn.classList.add('border-brand-600');
+                    btn.classList.remove('border-transparent');
+                } else {
+                    btn.classList.remove('border-brand-600');
+                    btn.classList.add('border-transparent');
+                }
+            });
+        }
+
+        // --- 3. Interactive Credit Calculator ---
+        const OTR_PRICE = 18200000;
+        let selectedTenor = 12;
+
+        const dpRange = document.getElementById('dp-range');
+        const dpValueText = document.getElementById('dp-value-text');
+        const monthlyInstallment = document.getElementById('monthly-installment');
+        const summaryDp = document.getElementById('summary-dp');
+        const summaryTenor = document.getElementById('summary-tenor');
+
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
+        }
+
+        function calculateCredit() {
+            const dpPercentage = parseInt(dpRange.value);
+            const dpAmount = (OTR_PRICE * dpPercentage) / 100;
+            const principal = OTR_PRICE - dpAmount;
+
+            // Interest calculation simulation (e.g. 10% per year)
+            const annualInterestRate = 0.10;
+            const totalInterest = principal * (annualInterestRate * (selectedTenor / 12));
+            const totalLoan = principal + totalInterest;
+            const monthlyPayment = Math.round(totalLoan / selectedTenor);
+
+            // Update UI Elements
+            dpValueText.innerText = `${formatRupiah(dpAmount)} (${dpPercentage}%)`;
+            summaryDp.innerText = formatRupiah(dpAmount);
+            summaryTenor.innerText = `${selectedTenor} Bulan`;
+            monthlyInstallment.innerText = formatRupiah(monthlyPayment);
+        }
+
+        function setTenor(tenorMonths) {
+            selectedTenor = tenorMonths;
+
+            // Highlight selected tenor button
+            document.querySelectorAll('.tenor-btn').forEach(btn => {
+                if (parseInt(btn.dataset.tenor) === tenorMonths) {
+                    btn.classList.add('border-brand-500', 'bg-brand-600/30', 'text-white');
+                    btn.classList.remove('border-slate-700', 'bg-slate-800/60', 'text-slate-300');
+                } else {
+                    btn.classList.remove('border-brand-500', 'bg-brand-600/30', 'text-white');
+                    btn.classList.add('border-slate-700', 'bg-slate-800/60', 'text-slate-300');
+                }
+            });
+
+            calculateCredit();
+        }
+
+        dpRange.addEventListener('input', calculateCredit);
+
+        // --- 4. Custom Modal Handler ---
+        function handleBooking() {
+            const dpPercentage = dpRange.value;
+            const dpAmount = (OTR_PRICE * dpPercentage) / 100;
+            const msg = `Terima kasih! Pengajuan simulasi kredit Anda dengan DP ${formatRupiah(dpAmount)} dan tenor ${selectedTenor} bulan telah dikirim ke tim sales Honda kami.`;
+            
+            document.getElementById('modal-message').innerText = msg;
+            const modal = document.getElementById('custom-modal');
+            const content = document.getElementById('modal-content');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            const content = document.getElementById('modal-content');
+
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Initialize Calculator on load
+        window.onload = function() {
+            calculateCredit();
+        };
+    </script>
+</body>
+</html>
