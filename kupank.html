@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liverpool FC - Sejarah & Lemari Trofi Perak Anfield | The Red Empire</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lfc: {
+                            red: '#C8102E',
+                            darkred: '#8A0015',
+                            gold: '#D4AF37',
+                            goldlight: '#F8E79B',
+                            teal: '#00B2A9',
+                            dark: '#0B0E14',
+                            card: '#141923',
+                            cardhover: '#1B2230',
+                            border: '#242C3D'
+                        }
+                    },
+                    fontFamily: {
+                        heading: ['Cinzel', 'serif'],
+                        subheading: ['Oswald', 'sans-serif'],
+                        body: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0B0E14;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-heading {
+            font-family: 'Cinzel', serif;
+        }
+
+        .font-subheading {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0E14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C8102E;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+
+        /* Glow and Glassmorphism */
+        .glow-red {
+            box-shadow: 0 0 25px rgba(200, 16, 46, 0.4);
+        }
+        .glow-gold {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+        }
+        .text-glow-red {
+            text-shadow: 0 0 15px rgba(200, 16, 46, 0.7);
+        }
+        .text-glow-gold {
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+        }
+
+        .glass-panel {
+            background: rgba(20, 25, 35, 0.82);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Timeline Connector Line */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 3px;
+            background: linear-gradient(180deg, #C8102E 0%, #D4AF37 50%, #00B2A9 100%);
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .timeline-container::before {
+                left: 24px;
+            }
+        }
+
+        /* Champions Wall Tile Effect */
+        .champions-tile {
+            background: linear-gradient(135deg, rgba(200,16,46,0.15) 0%, rgba(20,25,35,0.9) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .champions-tile:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: #D4AF37;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
+        }
+
+        /* Audio Visualizer Canvas Container */
+        #visualizerCanvas {
+            background: radial-gradient(circle, rgba(200,16,46,0.2) 0%, rgba(11,14,20,1) 85%);
+        }
+    </style>
+</head>
+<body class="bg-lfc-dark text-slate-200 antialiased selection:bg-lfc-red selection:text-white">
+
+    <!-- HEADER & NAVBAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-lfc-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo & Brand Name -->
+            <a href="#" class="flex items-center gap-3.5 group">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-lfc-red to-lfc-darkred flex items-center justify-center p-2 group-hover:scale-105 transition-transform duration-300 shadow-lg shadow-lfc-red/40 border border-lfc-gold/50">
+                    <!-- Liver Bird SVG Icon -->
+                    <svg viewBox="0 0 100 100" class="w-full h-full fill-lfc-goldlight drop-shadow">
+                        <path d="M50,5 C55,15 65,15 65,25 C65,30 60,35 55,35 C50,35 45,30 45,25 C45,20 48,12 50,5 Z M35,30 C40,30 45,35 45,45 C45,55 35,65 35,75 C35,80 40,85 45,85 C50,85 55,80 55,75 C55,60 65,50 75,50 C80,50 85,55 85,60 C85,75 70,90 50,90 C30,90 15,75 15,50 C15,35 25,30 35,30 Z"/>
+                        <circle cx="58" cy="22" r="3" fill="#111"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="block font-heading text-lg sm:text-xl font-extrabold tracking-wider text-white uppercase group-hover:text-lfc-gold transition-colors">LIVERPOOL FC</span>
+                    <span class="block text-[10px] sm:text-xs font-semibold tracking-widest text-lfc-gold uppercase -mt-1">The Red Empire & Silverware</span>
+                </div>
+            </a>
+
+            <!-- Desktop Links -->
+            <nav class="hidden lg:flex items-center space-x-6 text-xs sm:text-sm font-semibold tracking-wide">
+                <a href="#champions-wall" class="hover:text-lfc-gold transition-colors py-1 border-b-2 border-transparent hover:border-lfc-red">Champions Wall</a>
+                <a href="#trophy-cabinet" class="hover:text-lfc-gold transition-colors py-1 border-b-2 border-transparent hover:border-lfc-red">Lemari Trofi</a>
+                <a href="#history-timeline" class="hover:text-lfc-gold transition-colors py-1 border-b-2 border-transparent hover:border-lfc-red">Garis Waktu</a>
+                <a href="#hall-of-legends" class="hover:text-lfc-gold transition-colors py-1 border-b-2 border-transparent hover:border-lfc-red">Legends</a>
+                <a href="#ynwa-chant" class="hover:text-lfc-gold transition-colors py-1 border-b-2 border-transparent hover:border-lfc-red">Audio YNWA</a>
+                <a href="#quiz-section" class="hover:text-lfc-gold transition-colors py-1 border-b-2 border-transparent hover:border-lfc-red">Kuis Trivia</a>
+            </nav>
+
+            <!-- Search Bar, Bookmarks & Mobile Menu Toggle -->
+            <div class="flex items-center gap-3">
+                <div class="relative hidden sm:block">
+                    <input type="text" id="globalSearchInput" placeholder="Cari trofi, tahun, legenda..." 
+                        class="bg-lfc-card border border-lfc-border rounded-full pl-9 pr-4 py-1.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-lfc-gold w-44 lg:w-56 transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                </div>
+
+                <!-- Bookmark Button with Counter -->
+                <button id="openBookmarksBtn" class="relative px-3 py-2 rounded-xl bg-lfc-card border border-lfc-border hover:border-lfc-gold text-lfc-gold transition-all flex items-center gap-1.5 text-xs font-semibold">
+                    <i class="fa-solid fa-star text-lfc-gold"></i>
+                    <span class="hidden md:inline">Favorit</span>
+                    <span id="bookmarkBadge" class="bg-lfc-red text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center">0</span>
+                </button>
+
+                <button id="mobileMenuBtn" class="lg:hidden text-2xl text-slate-300 hover:text-white p-1">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-lfc-card border-b border-lfc-border px-6 py-4 space-y-3 text-sm font-semibold">
+            <div class="mb-3 sm:hidden">
+                <input type="text" id="globalSearchInputMobile" placeholder="Cari trofi, tahun, legenda..." 
+                    class="w-full bg-lfc-dark border border-lfc-border rounded-xl px-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-lfc-gold">
+            </div>
+            <a href="#champions-wall" class="block hover:text-lfc-gold py-1">Champions Wall</a>
+            <a href="#trophy-cabinet" class="block hover:text-lfc-gold py-1">Lemari Trofi Perak</a>
+            <a href="#history-timeline" class="block hover:text-lfc-gold py-1">Garis Waktu Sejarah</a>
+            <a href="#hall-of-legends" class="block hover:text-lfc-gold py-1">Hall of Legends</a>
+            <a href="#ynwa-chant" class="block hover:text-lfc-gold py-1">Audio Chant YNWA</a>
+            <a href="#quiz-section" class="block hover:text-lfc-gold py-1">Kuis Kopite Trivia</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen pt-28 pb-16 flex items-center justify-center overflow-hidden">
+        <!-- Background Overlay Image & Glow Filters -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1920&q=80" 
+                 alt="Anfield Atmosphere" 
+                 class="w-full h-full object-cover object-center opacity-25 filter blur-[2px]"
+                 onerror="this.style.display='none'">
+            <div class="absolute inset-0 bg-gradient-to-b from-lfc-dark/90 via-lfc-dark/80 to-lfc-dark"></div>
+        </div>
+
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-lfc-red/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -right-32 w-96 h-96 bg-lfc-gold/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- Gold Crest Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-lfc-red/20 border border-lfc-gold/50 text-lfc-goldlight text-xs sm:text-sm font-semibold tracking-wider uppercase mb-6 animate-pulse shadow-lg shadow-lfc-red/20">
+                <i class="fa-solid fa-shield-halved text-lfc-gold"></i> Portofolio Resmi Sejarah & Koleksi Perak Anfield
+            </div>
+
+            <h1 class="font-heading text-3xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white uppercase leading-tight mb-4">
+                THE RED EMPIRE <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-lfc-gold via-lfc-goldlight to-amber-200 text-glow-gold">68+ TROFI UTAMA ANFIELD</span>
+            </h1>
+
+            <p class="max-w-3xl mx-auto text-sm sm:text-lg text-slate-300 font-light leading-relaxed mb-8">
+                Jelajahi keagungan raksasa Merseyside dari pendirian tahun 1892, 6 gelar Mahkota Champions League, 19 Liga Inggris, hingga kejayaan perak di panggung sepak bola dunia.
+            </p>
+
+            <!-- Quick Action Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-14">
+                <a href="#trophy-cabinet" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-lfc-red to-lfc-darkred text-white font-bold shadow-xl shadow-lfc-red/40 hover:scale-105 transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                    <i class="fa-solid fa-trophy text-lfc-gold"></i> Eksplor Lemari Trofi
+                </a>
+                <a href="#champions-wall" class="px-8 py-3.5 rounded-xl bg-lfc-card border border-lfc-gold/60 text-lfc-gold font-bold hover:bg-lfc-cardhover hover:scale-105 transition-all flex items-center gap-2 text-sm uppercase tracking-wider">
+                    <i class="fa-solid fa-monument"></i> Champions Wall
+                </a>
+            </div>
+
+            <!-- Quick Counter Stats Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 max-w-6xl mx-auto">
+                <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-lfc-gold/30 text-center hover:border-lfc-gold transition-all">
+                    <div class="text-2xl sm:text-3xl font-extrabold font-heading text-lfc-gold">6</div>
+                    <div class="text-[10px] sm:text-xs uppercase font-subheading text-slate-300 mt-1">UCL / European Cup</div>
+                </div>
+                <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-lfc-border text-center hover:border-lfc-red transition-all">
+                    <div class="text-2xl sm:text-3xl font-extrabold font-heading text-lfc-red">19</div>
+                    <div class="text-[10px] sm:text-xs uppercase font-subheading text-slate-300 mt-1">League Titles</div>
+                </div>
+                <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-lfc-border text-center hover:border-white transition-all">
+                    <div class="text-2xl sm:text-3xl font-extrabold font-heading text-white">8</div>
+                    <div class="text-[10px] sm:text-xs uppercase font-subheading text-slate-300 mt-1">FA Cup</div>
+                </div>
+                <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-lfc-border text-center hover:border-lfc-gold transition-all">
+                    <div class="text-2xl sm:text-3xl font-extrabold font-heading text-lfc-gold">10</div>
+                    <div class="text-[10px] sm:text-xs uppercase font-subheading text-slate-300 mt-1">League Cup</div>
+                </div>
+                <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-lfc-border text-center hover:border-lfc-red transition-all">
+                    <div class="text-2xl sm:text-3xl font-extrabold font-heading text-lfc-red">1</div>
+                    <div class="text-[10px] sm:text-xs uppercase font-subheading text-slate-300 mt-1">Club World Cup</div>
+                </div>
+                <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-lfc-border text-center hover:border-lfc-teal transition-all">
+                    <div class="text-2xl sm:text-3xl font-extrabold font-heading text-lfc-teal">4</div>
+                    <div class="text-[10px] sm:text-xs uppercase font-subheading text-slate-300 mt-1">UEFA Super Cup</div>
+                </div>
+                <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-lfc-border text-center hover:border-lfc-teal transition-all">
+                    <div class="text-2xl sm:text-3xl font-extrabold font-heading text-lfc-teal">3</div>
+                    <div class="text-[10px] sm:text-xs uppercase font-subheading text-slate-300 mt-1">UEFA Europa Cup</div>
+                </div>
+                <div class="glass-panel p-3 sm:p-4 rounded-2xl border border-lfc-border text-center hover:border-lfc-gold transition-all">
+                    <div class="text-2xl sm:text-3xl font-extrabold font-heading text-lfc-gold">16</div>
+                    <div class="text-[10px] sm:text-xs uppercase font-subheading text-slate-300 mt-1">Community Shield</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAMPIONS WALL VISUALIZER SECTION -->
+    <section id="champions-wall" class="py-20 bg-gradient-to-b from-lfc-dark via-lfc-card/60 to-lfc-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-xs font-bold uppercase text-lfc-gold tracking-widest font-subheading">Simbol Keagungan Melwood & Anfield</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white uppercase font-heading mt-2">ANFIELD CHAMPIONS WALL</h2>
+                <p class="text-slate-300 mt-3 text-sm sm:text-base">Dinding kehormatan abadi yang mencatat gelar juara utama Liverpool Football Club. Klik pada plakat untuk menyaring koleksi trofi.</p>
+            </div>
+
+            <!-- Wall Grid Visualizer -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto" id="championsWallGrid">
+                <!-- Dynamic Tiles Rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SHOWCASE LEMARI TROFI PERAK (TROPHY CABINET SHOWCASE) -->
+    <section id="trophy-cabinet" class="py-20 bg-lfc-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase text-lfc-gold tracking-widest font-subheading">Koleksi Perak Bertabur Emas</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white uppercase font-heading mt-2">LEMARI TROFI ANFIELD</h2>
+                <p class="text-slate-300 mt-3 text-sm sm:text-base">Eksplorasi dokumentasi visual foto-foto trofi, momen final bersejarah, daftar tahun juara, dan kapten legenda pengangkat piala.</p>
+            </div>
+
+            <!-- Trophy Category Filters -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12" id="trophyCategoryTabs">
+                <button data-category="all" class="trophy-tab active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold border transition-all bg-lfc-red border-lfc-red text-white shadow-lg">Semua Trofi (68+)</button>
+                <button data-category="europe" class="trophy-tab px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">Eropa & Dunia (14)</button>
+                <button data-category="league" class="trophy-tab px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">Liga Domestik (19)</button>
+                <button data-category="cup" class="trophy-tab px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">Piala Domestik (35)</button>
+            </div>
+
+            <!-- Trophy Cards Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="trophyGrid">
+                <!-- Rendered dynamically by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTORICAL ERAS TIMELINE SECTION -->
+    <section id="history-timeline" class="py-20 bg-gradient-to-b from-lfc-dark via-lfc-card/40 to-lfc-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase text-lfc-gold tracking-widest font-subheading">Jejak 130+ Tahun Kejayaan</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white uppercase font-heading mt-2">GARIS WAKTU SEJARAH KLUB</h2>
+                <p class="text-slate-300 mt-3 text-sm sm:text-base">Menelusuri transformasi Liverpool FC dari perselisihan Anfield 1892, revolusi Bill Shankly, kejayaan Eropa, hingga era modern.</p>
+            </div>
+
+            <!-- Era Navigation Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12" id="eraFilterTabs">
+                <button data-era="all" class="era-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all bg-lfc-red border-lfc-red text-white">Semua Era</button>
+                <button data-era="1892-1958" class="era-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">1892–1958</button>
+                <button data-era="1959-1974" class="era-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">1959–1974</button>
+                <button data-era="1974-1985" class="era-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">1974–1985</button>
+                <button data-era="1985-1998" class="era-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">1985–1998</button>
+                <button data-era="1998-2015" class="era-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">1998–2015</button>
+                <button data-era="2015-2024" class="era-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">2015–2024</button>
+                <button data-era="2024-now" class="era-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold border border-lfc-border bg-lfc-card text-slate-300 hover:border-lfc-gold">2024–Kini</button>
+            </div>
+
+            <!-- Timeline Container -->
+            <div class="relative timeline-container max-w-5xl mx-auto space-y-12" id="timelineList">
+                <!-- Rendered dynamically by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- HALL OF LEGENDS SECTION -->
+    <section id="hall-of-legends" class="py-20 bg-lfc-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase text-lfc-gold tracking-widest font-subheading">Pahlawan & Arsitek Trofi</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white uppercase font-heading mt-2">HALL OF LEGENDS</h2>
+                <p class="text-slate-300 mt-3 text-sm sm:text-base">Manajer dan kapten ikonik yang mendedikasikan jiwanya untuk mempersembahkan mahkota perak di Anfield.</p>
+            </div>
+
+            <!-- Legends Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="legendsGrid">
+                <!-- Rendered dynamically by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE AUDIO CHANT "YOU'LL NEVER WALK ALONE" -->
+    <section id="ynwa-chant" class="py-20 bg-gradient-to-br from-lfc-darkred/40 via-lfc-dark to-lfc-dark relative overflow-hidden border-t border-b border-lfc-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- History of YNWA -->
+                <div>
+                    <span class="text-xs font-bold uppercase text-lfc-gold tracking-widest font-subheading">Lagu Kebangsaan Suci Anfield</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white uppercase font-heading mt-2 mb-6">YOU'LL NEVER WALK ALONE</h2>
+                    <p class="text-slate-300 leading-relaxed mb-6 text-sm sm:text-base">
+                        Dipopulerkan oleh Gerry and the Pacemakers pada tahun 1963 dan diadopsi oleh tribun legendaris **The Kop Stand**, YNWA bukan sekadar lagu melainkan simbol jiwa, persatuan, dan penghormatan abadi untuk **97 Korban Tragedi Hillsborough**.
+                    </p>
+
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-lfc-card/90 border border-lfc-border flex items-start gap-4">
+                            <div class="p-3 bg-lfc-red/20 text-lfc-gold rounded-xl text-2xl border border-lfc-red/30">
+                                <i class="fa-solid fa-music"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-subheading text-lg font-bold text-white">Lagu Bertuah Sebelum Kick-off</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Dikumandangkan puluhan ribu Kopites di Anfield sambil membentangkan syal merah sebelum setiap laga dimulai.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-lfc-card/90 border border-lfc-border flex items-start gap-4">
+                            <div class="p-3 bg-lfc-gold/20 text-lfc-gold rounded-xl text-2xl border border-lfc-gold/30">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-subheading text-lg font-bold text-white">Simbol Keadilan & Kebangkitan</h4>
+                                <p class="text-xs text-slate-400 mt-0.5">Lirik lagu ini memberi kekuatan saat Keajaiban Istanbul 2005 dan perjuangan keadilan Justice for the 97.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Audio Player & Canvas Visualizer -->
+                <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-lfc-gold/30 shadow-2xl">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold font-heading text-lfc-gold tracking-wide">YNWA AUDIO SYNTHESIZER</h3>
+                        <p class="text-xs text-slate-400 mt-1">Dengarkan Harmoni Melodius YNWA & Visualisasi Gelombang Audio</p>
+                    </div>
+
+                    <!-- Canvas Visualizer -->
+                    <div class="relative rounded-2xl overflow-hidden mb-6 border border-lfc-border shadow-inner">
+                        <canvas id="visualizerCanvas" class="w-full h-40 block"></canvas>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <button id="playYNWABtn" class="w-16 h-16 rounded-full bg-gradient-to-r from-lfc-red to-lfc-darkred text-white flex items-center justify-center text-2xl shadow-xl shadow-lfc-red/60 hover:scale-110 transition-all border border-lfc-gold">
+                                <i class="fa-solid fa-play ml-1" id="playYNWAIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dual Lyrics Tabs -->
+                    <div class="bg-lfc-dark/90 rounded-2xl p-4 border border-lfc-border">
+                        <div class="flex border-b border-lfc-border mb-3 text-xs font-bold font-subheading">
+                            <button id="lyricEnBtn" class="flex-1 py-2 text-lfc-gold border-b-2 border-lfc-gold">Lirik Bahasa Inggris</button>
+                            <button id="lyricIdBtn" class="flex-1 py-2 text-slate-400 hover:text-white">Terjemahan Indonesia</button>
+                        </div>
+
+                        <!-- EN Lyrics -->
+                        <div id="lyricEnText" class="text-center space-y-2 text-xs sm:text-sm text-slate-300 font-serif italic max-h-48 overflow-y-auto pr-2">
+                            <p>When you walk through a storm, Hold your head up high</p>
+                            <p>And don't be afraid of the dark.</p>
+                            <p>At the end of a storm, There's a golden sky</p>
+                            <p>And the sweet silver song of a lark.</p>
+                            <p class="font-bold text-lfc-gold not-italic mt-2">Walk on through the wind, Walk on through the rain,</p>
+                            <p class="font-bold text-lfc-gold not-italic">Though your dreams be tossed and blown...</p>
+                            <p class="text-base sm:text-lg font-extrabold text-lfc-red uppercase font-heading not-italic mt-3 tracking-wider text-glow-red">WALK ON, WALK ON WITH HOPE IN YOUR HEART</p>
+                            <p class="text-base sm:text-lg font-extrabold text-white uppercase font-heading not-italic tracking-wider">AND YOU'LL NEVER WALK ALONE!</p>
+                        </div>
+
+                        <!-- ID Lyrics -->
+                        <div id="lyricIdText" class="hidden text-center space-y-2 text-xs sm:text-sm text-slate-300 font-serif italic max-h-48 overflow-y-auto pr-2">
+                            <p>Ketika engkau melintasi badai, Tegakkan kepalamu tinggi-tinggi</p>
+                            <p>Dan jangan pernah takut akan kegelapan.</p>
+                            <p>Di penghujung badai, ada langit keemasan yang indah</p>
+                            <p>Dan nyanyian perak burung berkicau merdu.</p>
+                            <p class="font-bold text-lfc-gold not-italic mt-2">Teruslah melangkah menembus angin, Menerjang derasnya hujan,</p>
+                            <p class="font-bold text-lfc-gold not-italic">Meskipun impianmu terhempas dan terguncang...</p>
+                            <p class="text-base sm:text-lg font-extrabold text-lfc-red uppercase font-heading not-italic mt-3 tracking-wider text-glow-red">MELANGKAHLAH DENGAN HARAPAN DI HATIMU</p>
+                            <p class="text-base sm:text-lg font-extrabold text-white uppercase font-heading not-italic tracking-wider">DAN ENGKAU TIDAK AKAN PERNAH BERJALAN SENDIRIAN!</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- KOPITE HISTORY & TROPHY QUIZ SECTION -->
+    <section id="quiz-section" class="py-20 bg-lfc-dark relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-xs font-bold uppercase text-lfc-gold tracking-widest font-subheading">Uji Pengetahuan Sejarahmu</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white uppercase font-heading mt-2">SEBERAPA KOPITE KAMU?</h2>
+                <p class="text-slate-300 mt-2 text-sm">Jawab 5 pertanyaan trivia sejarah & trofi Anfield untuk meraih lencana gelar kehormatan Kopite!</p>
+            </div>
+
+            <div class="glass-panel p-6 sm:p-10 rounded-3xl border border-lfc-gold/30 shadow-2xl" id="quizCard">
+                <!-- Quiz Progress Bar -->
+                <div class="flex items-center justify-between border-b border-lfc-border pb-4 mb-6">
+                    <span class="text-xs font-bold uppercase text-lfc-teal font-subheading" id="quizTracker">Pertanyaan 1 dari 5</span>
+                    <span class="text-xs font-bold text-lfc-gold font-subheading" id="quizScoreDisplay">Skor: 0</span>
+                </div>
+
+                <!-- Quiz Questions Body -->
+                <div id="quizBody">
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-6 font-heading" id="quizQuestionText">Loading pertanyaan...</h3>
+                    <div class="space-y-3" id="quizOptionsContainer">
+                        <!-- Options injected dynamically -->
+                    </div>
+
+                    <div class="mt-8 flex justify-between items-center">
+                        <div id="quizFeedback" class="text-xs sm:text-sm font-semibold"></div>
+                        <button id="nextQuizBtn" disabled class="px-6 py-2.5 rounded-xl bg-lfc-red opacity-50 text-white font-bold text-xs uppercase tracking-wider hover:bg-red-600 transition-all">
+                            Lanjut <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Results Display -->
+                <div id="quizResult" class="hidden text-center py-6">
+                    <div class="w-24 h-24 rounded-full bg-lfc-gold/20 text-lfc-gold flex items-center justify-center text-5xl mx-auto mb-4 border border-lfc-gold shadow-lg shadow-lfc-gold/30">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold font-heading text-white uppercase" id="badgeTitle">ANFIELD LEGEND</h3>
+                    <p class="text-lfc-gold font-bold text-lg font-subheading mt-1" id="finalScoreText">Skor Kamu: 5 / 5</p>
+                    <p class="text-slate-300 text-xs sm:text-sm max-w-md mx-auto mt-3 leading-relaxed" id="badgeDescription">Darahmu merah membara! Kamu adalah Kopite sejati dengan pemahaman luar biasa atas kejayaan perak Anfield.</p>
+                    <button id="restartQuizBtn" class="mt-8 px-8 py-3 rounded-xl bg-lfc-red text-white font-bold text-xs uppercase tracking-wider hover:scale-105 transition-all shadow-lg shadow-lfc-red/40">
+                        Coba Lagi <i class="fa-solid fa-rotate-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-lfc-card border-t border-lfc-border py-12 text-center text-xs text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <div class="flex justify-center items-center gap-3">
+                <span class="font-heading text-lg font-extrabold text-white">LIVERPOOL FC</span>
+                <span class="text-lfc-gold">•</span>
+                <span class="text-lfc-gold font-subheading tracking-wider">EST. 1892</span>
+            </div>
+            <p class="max-w-xl mx-auto text-slate-400 leading-relaxed">
+                Website portofolio interaktif sejarah & lemari trofi perak Anfield. Didedikasikan untuk pendukung Liverpool Football Club di seluruh dunia.
+            </p>
+            <p class="text-slate-500">&copy; 2026 The Red Empire - Liverpool FC History & Trophy Legacy. You'll Never Walk Alone.</p>
+        </div>
+    </footer>
+
+    <!-- GLOBAL DETAIL MODAL -->
+    <div id="modalOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel border border-lfc-gold/40 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl">
+            <button id="closeModalBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-9 h-9 rounded-full bg-lfc-dark flex items-center justify-center border border-lfc-border">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modalContent">
+                <!-- Injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKMARKS DRAWER MODAL -->
+    <div id="bookmarksModalOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-panel border border-lfc-gold/40 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 relative shadow-2xl">
+            <button id="closeBookmarksBtn" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl w-9 h-9 rounded-full bg-lfc-dark flex items-center justify-center border border-lfc-border">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-6 border-b border-lfc-border pb-4">
+                <i class="fa-solid fa-star text-2xl text-lfc-gold"></i>
+                <div>
+                    <h3 class="text-xl font-bold font-heading text-white uppercase">Trofi Favorit Pilihanmu</h3>
+                    <p class="text-xs text-slate-400">Daftar koleksi trofi yang kamu bookmark</p>
+                </div>
+            </div>
+            <div id="bookmarksList" class="space-y-3">
+                <!-- Bookmark items injected dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 hidden px-5 py-3 rounded-2xl bg-lfc-card border border-lfc-gold text-white shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-semibold transition-all">
+        <i class="fa-solid fa-circle-check text-lfc-gold text-lg"></i>
+        <span id="toastText">Pesan Notifikasi</span>
+    </div>
+
+    <script>
+        
+        // --- 1. TROPHIES DATABASE ---
+        const TROPHIES_DATA = [
+            {
+                id: 'ucl',
+                name: 'UEFA Champions League / European Cup',
+                shortName: 'European Champions',
+                category: 'europe',
+                count: 6,
+                badgeColor: 'text-lfc-gold',
+                firstWon: '1977',
+                lastWon: '2019',
+                years: ['1977', '1978', '1981', '1984', '2005', '2019'],
+                captains: 'Emlyn Hughes (1977, 1978), Phil Thompson (1981), Graeme Souness (1984), Steven Gerrard (2005), Jordan Henderson (2019)',
+                managers: 'Bob Paisley (3x), Joe Fagan (1x), Rafael Benítez (1x), Jürgen Klopp (1x)',
+                image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80',
+                celebrationImg: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=800&q=80',
+                description: 'Mahkota paling bergengsi di benua Eropa. Liverpool adalah klub Inggris paling sukses di UEFA Champions League dengan 6 trofi Si Kuping Besar.',
+                finalTrivia: 'Final Paling Ikonik: Keajaiban Istanbul 2005 (bangkit dari 0-3 lawan AC Milan) & Final Madrid 2019 (menang 2-0 lawan Tottenham).'
+            },
+            {
+                id: 'league',
+                name: 'English Premier League / First Division',
+                shortName: 'English Champions',
+                category: 'league',
+                count: 19,
+                badgeColor: 'text-lfc-red',
+                firstWon: '1901',
+                lastWon: '2020',
+                years: ['1901', '1906', '1922', '1923', '1947', '1964', '1966', '1973', '1976', '1977', '1979', '1980', '1982', '1983', '1984', '1986', '1988', '1990', '2020'],
+                captains: 'Donald McKinlay, Ron Yeats, Emlyn Hughes, Alan Hansen, Jordan Henderson',
+                managers: 'Tom Watson, David Ashworth, Matt McQueen, George Kay, Bill Shankly, Bob Paisley, Joe Fagan, Kenny Dalglish, Jürgen Klopp',
+                image: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80',
+                celebrationImg: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=800&q=80',
+                description: '19 Gelar Juara Liga Inggris kasta tertinggi. Mendominasi era 70-an & 80-an serta mengakhiri dahaga 30 tahun pada musim rekor 2019-20.',
+                finalTrivia: 'Pada musim 2019-20 di bawah Jürgen Klopp, The Reds mengunci gelar juara dengan sisa 7 laga tercepat dalam sejarah Premier League dengan 99 poin.'
+            },
+            {
+                id: 'facup',
+                name: 'FA Challenge Cup',
+                shortName: 'FA Cup Winners',
+                category: 'cup',
+                count: 8,
+                badgeColor: 'text-white',
+                firstWon: '1965',
+                lastWon: '2022',
+                years: ['1965', '1974', '1986', '1989', '1992', '2006', '2022'],
+                captains: 'Ron Yeats, Emlyn Hughes, Alan Hansen, Mark Wright, Steven Gerrard, Jordan Henderson',
+                managers: 'Bill Shankly, Kenny Dalglish, Graeme Souness, Gérard Houllier, Rafael Benítez, Jürgen Klopp',
+                image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80',
+                celebrationImg: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=800&q=80',
+                description: 'Kompetisi sepak bola tertua di dunia. Kemenangan pertama diraih Bill Shankly 1965 hingga The Gerrard Final 2006 yang legendaris.',
+                finalTrivia: 'Final FA Cup 2006 dikenang sebagai "The Gerrard Final" setelah tembakan spektakuler Steven Gerrard dari jarak 35 yard pada menit 91.'
+            },
+            {
+                id: 'leaguecup',
+                name: 'EFL League Cup / Carabao Cup',
+                shortName: 'League Cup Kings',
+                category: 'cup',
+                count: 10,
+                badgeColor: 'text-lfc-gold',
+                firstWon: '1981',
+                lastWon: '2024',
+                years: ['1981', '1982', '1983', '1984', '1995', '2001', '2012', '2022', '2024'],
+                captains: 'Phil Thompson, Graeme Souness, Ian Rush, Robbie Fowler, Steven Gerrard, Jordan Henderson, Virgil van Dijk',
+                managers: 'Bob Paisley, Roy Evans, Gérard Houllier, Kenny Dalglish, Jürgen Klopp',
+                image: 'https://images.unsplash.com/photo-1614632537197-38a17061c2bd?auto=format&fit=crop&w=800&q=80',
+                celebrationImg: 'https://images.unsplash.com/photo-1517649763962-0c623266010b?auto=format&fit=crop&w=800&q=80',
+                description: 'Rekor pemenang terbanyak dalam sejarah League Cup Inggris dengan 10 mahkota juara.',
+                finalTrivia: 'Gelar ke-10 diraih tahun 2024 saat tandukan Virgil van Dijk di menit 118 menaklukkan Chelsea dengan skuad muda akademi.'
+            },
+            {
+                id: 'cwc',
+                name: 'FIFA Club World Cup',
+                shortName: 'World Champions',
+                category: 'europe',
+                count: 1,
+                badgeColor: 'text-lfc-red',
+                firstWon: '2019',
+                lastWon: '2019',
+                years: ['2019'],
+                captains: 'Jordan Henderson',
+                managers: 'Jürgen Klopp',
+                image: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80',
+                celebrationImg: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=800&q=80',
+                description: 'Gelar Juara Dunia antar Klub FIFA pertama dalam sejarah klub usai menundukkan Flamengo di Doha.',
+                finalTrivia: 'Roberto Firmino mencetak gol tunggal kemenangan di babak perpanjangan waktu untuk menobatkan Liverpool sebagai Juara Dunia.'
+            },
+            {
+                id: 'supercup',
+                name: 'UEFA Super Cup',
+                shortName: 'Super Cup Champions',
+                category: 'europe',
+                count: 4,
+                badgeColor: 'text-lfc-teal',
+                firstWon: '1977',
+                lastWon: '2019',
+                years: ['1977', '2001', '2005', '2019'],
+                captains: 'Emlyn Hughes, Sami Hyypiä, Steven Gerrard, Jordan Henderson',
+                managers: 'Bob Paisley, Gérard Houllier, Rafael Benítez, Jürgen Klopp',
+                image: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=800&q=80',
+                celebrationImg: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80',
+                description: 'Laga antar raja Eropa mempertemukan Juara Champions League dan Juara Europa League/UEFA Cup.',
+                finalTrivia: 'Di Istanbul 2019, kiper Adrian menjadi pahlawan penalti saat menghentikan tembakan Abraham dari Chelsea.'
+            },
+            {
+                id: 'europaleague',
+                name: 'UEFA Cup / Europa League',
+                shortName: 'UEFA Cup Winners',
+                category: 'europe',
+                count: 3,
+                badgeColor: 'text-lfc-teal',
+                firstWon: '1973',
+                lastWon: '2001',
+                years: ['1973', '1976', '2001'],
+                captains: 'Tommy Smith, Emlyn Hughes, Sami Hyypiä',
+                managers: 'Bill Shankly, Bob Paisley, Gérard Houllier',
+                image: 'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=800&q=80',
+                celebrationImg: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80',
+                description: 'Tiga mahkota piala UEFA termasuk bagian dari raihan Treble Cup fantastis tahun 2001.',
+                finalTrivia: 'Final UEFA Cup 2001 berakhir dengan skor gila 5-4 atas Deportivo Alavés lewat Golden Goal di menit 116.'
+            },
+            {
+                id: 'communityshield',
+                name: 'FA Community / Charity Shield',
+                shortName: 'Shield Holders',
+                category: 'cup',
+                count: 16,
+                badgeColor: 'text-lfc-gold',
+                firstWon: '1964',
+                lastWon: '2022',
+                years: ['1964*', '1965*', '1966', '1974', '1976', '1977*', '1979', '1980', '1982', '1986*', '1988', '1989', '1990*', '2001', '2006', '2022'],
+                captains: 'Ron Yeats, Emlyn Hughes, Phil Thompson, Alan Hansen, Steven Gerrard, Jordan Henderson',
+                managers: 'Bill Shankly, Bob Paisley, Kenny Dalglish, Gérard Houllier, Rafael Benítez, Jürgen Klopp',
+                image: 'https://images.unsplash.com/photo-1517649763962-0c623266010b?auto=format&fit=crop&w=800&q=80',
+                celebrationImg: 'https://images.unsplash.com/photo-1614632537197-38a17061c2bd?auto=format&fit=crop&w=800&q=80',
+                description: '16 Kali memenangkan laga pembuka musim kompetisi Inggris (*Termasuk 5 kali gelar bersama).',
+                finalTrivia: 'Kemenangan 2022 diraih usai membantai Manchester City 3-1 dengan gol pembuka Darwin Núñez.'
+            }
+        ];
+
+        // --- 2. TIMELINE ERAS DATABASE ---
+        const HISTORICAL_ERAS = [
+            {
+                id: 'era1',
+                era: '1892-1958',
+                years: '1892–1958',
+                title: 'Pendirian Klub di Anfield & Era Awal',
+                summary: 'John Houlding mendirikan Liverpool FC pada 15 Maret 1892 usai perselisihan dengan Everton.',
+                details: 'Di bawah manajer Tom Watson, Liverpool meraih gelar Liga Inggris Pertama pada 1901 dan 1906. Klub membangun fondasi kuat dan tribun legendaris Spion Kop dibangun pada 1906.',
+                trophiesWon: '5x First Division Titles',
+                icon: 'fa-flag'
+            },
+            {
+                id: 'era2',
+                era: '1959-1974',
+                years: '1959–1974',
+                title: 'Revolusi Bill Shankly & Boot Room',
+                summary: 'Bill Shankly mengubah klub divisi dua menjadi kekuatan raksasa tak tertandingi.',
+                details: 'Shankly merombak fasilitas Anfield, memperkenalkan jersey All-Red (Serba Merah), mendirikan "Boot Room", serta mempersembahkan FA Cup pertama (1965) dan piala Eropa pertama (UEFA Cup 1973).',
+                trophiesWon: '3x League, 2x FA Cup, 1x UEFA Cup, 3x Shields',
+                icon: 'fa-user-tie'
+            },
+            {
+                id: 'era3',
+                era: '1974-1985',
+                years: '1974–1985',
+                title: 'Dominasi Eropa Bob Paisley & Joe Fagan',
+                summary: 'Era keemasan paling sukses dalam sejarah sepak bola Inggris.',
+                details: 'Bob Paisley memenangkan 20 trofi utama hanya dalam 9 tahun termasuk 3 European Cup (1977, 1978, 1981). Joe Fagan melanjutkannya dengan meraih Treble 1984 (European Cup, League, League Cup).',
+                trophiesWon: '4x European Cup, 7x League, 4x League Cup, 1x UEFA Cup',
+                icon: 'fa-trophy'
+            },
+            {
+                id: 'era4',
+                era: '1985-1998',
+                years: '1985–1998',
+                title: 'Era King Kenny Dalglish & Ketabahan',
+                summary: 'Kenny Dalglish memimpin klub meraih Double 1986 & memperjuangkan keadilan Hillsborough.',
+                details: 'Di tengah duka Tragedi Hillsborough 1989 yang merenggut 97 nyawa, Sir Kenny memimpin komunitas Liverpool dengan ketabahan luar biasa dan meraih gelar Liga ke-18 pada tahun 1990.',
+                trophiesWon: '3x League, 2x FA Cup, 4x Shields',
+                icon: 'fa-ribbon'
+            },
+            {
+                id: 'era5',
+                era: '1998-2015',
+                years: '1998–2015',
+                title: 'Treble Houllier & Keajaiban Istanbul Benítez',
+                summary: 'Gérard Houllier memenangkan Cup Treble 2001, dan Rafa Benítez menguasai Eropa 2005.',
+                details: 'Tahun 2001 mencatat Treble Cup (UEFA Cup, FA Cup, League Cup). Pada 2005, Kapten Steven Gerrard memimpin kebangkitan ajaib dari ketinggalan 0-3 vs AC Milan di Final UCL Istanbul.',
+                trophiesWon: '1x UCL, 1x UEFA Cup, 2x FA Cup, 2x League Cup, 1x Super Cup',
+                icon: 'fa-star'
+            },
+            {
+                id: 'era6',
+                era: '2015-2024',
+                years: '2015–2024',
+                title: 'Heavy Metal Football Era Jürgen Klopp',
+                summary: 'Mengubah "Doubters to Believers" dan menjuarai seluruh trofi utama.',
+                details: 'Jürgen Klopp memenangkan UCL 2019, Premier League 2020 (99 Poin, akhiri puasa 30 tahun), Club World Cup, Super Cup, FA Cup, dan 2 League Cup dalam permainan menyerang tanpa henti.',
+                trophiesWon: '1x UCL, 1x Premier League, 1x Club World Cup, 1x FA Cup, 2x League Cup, 1x Super Cup',
+                icon: 'fa-crown'
+            },
+            {
+                id: 'era7',
+                era: '2024-now',
+                years: '2024–Sekarang',
+                title: 'Babak Baru Arne Slot di Anfield',
+                summary: 'Menjaga tradisi kejayaan dengan filosofi taktik modern yang solid.',
+                details: 'Pasca kepergian emosional Jürgen Klopp, Arne Slot meneruskan estafet kepemimpinan dengan fondasi kuat, reputasi elit, dan skuad bertabur bintang di Anfield.',
+                trophiesWon: 'Generasi Baru Pengejar Mahkota',
+                icon: 'fa-compass'
+            }
+        ];
+
+        // --- 3. HALL OF LEGENDS DATABASE ---
+        const LEGENDS_DATA = [
+            {
+                name: 'Bill Shankly',
+                role: 'Manajer Legendaris (1959–1974)',
+                trophies: '3x League, 2x FA Cup, 1x UEFA Cup',
+                quote: 'Beberapa orang percaya sepak bola adalah masalah hidup dan mati. Saya pastikan, ini jauh lebih penting dari itu.',
+                bio: 'Bapak pendiri Liverpool modern. Mengubah klub divisi dua menjadi dinasti raksasa sepak bola.',
+                icon: 'fa-user-large'
+            },
+            {
+                name: 'Bob Paisley',
+                role: 'Manajer Paling Sukses (1974–1983)',
+                trophies: '3x European Cup, 6x League, 3x League Cup, 1x UEFA Cup',
+                quote: 'Di sini kami tidak hanya membangun tim, kami membangun tradisi kemenangan abadi.',
+                bio: 'Mempersembahkan 20 trofi utama hanya dalam 9 tahun kepemimpinan di Anfield.',
+                icon: 'fa-trophy'
+            },
+            {
+                name: 'Sir Kenny Dalglish',
+                role: 'Pemain & Manajer "King Kenny"',
+                trophies: '3x UCL (Pemain), 3x League (Manajer), 2x FA Cup',
+                quote: 'You\'ll Never Walk Alone bukan sekadar lagu, itu adalah cara hidup.',
+                bio: 'Ikon terbesar yang dicintai Kopites baik sebagai penyihir lapangan maupun pemimpin spiritual Hillsborough.',
+                icon: 'fa-crown'
+            },
+            {
+                name: 'Steven Gerrard',
+                role: 'Kapten Ikonik (1998–2015)',
+                trophies: '1x UCL, 1x UEFA Cup, 2x FA Cup, 3x League Cup',
+                quote: 'Saat saya bertanding di lapangan, saya mewakili seluruh impian orang di kota Liverpool.',
+                bio: 'Kapten terhebat era modern. Pahlawan utama Keajaiban Istanbul 2005 dan Final FA Cup 2006.',
+                icon: 'fa-star'
+            },
+            {
+                name: 'Jürgen Klopp',
+                role: 'Manajer Modern (2015–2024)',
+                trophies: '1x UCL, 1x Premier League, 1x CWC, 1x FA Cup, 2x League Cup',
+                quote: 'Ubah dirimu dari ragu menjadi percaya (Doubters to Believers).',
+                bio: 'Arsitek Heavy Metal Football yang menghadirkan kembali gelar Liga Inggris setelah 30 tahun.',
+                icon: 'fa-heart'
+            },
+            {
+                name: 'Jordan Henderson',
+                role: 'Kapten Angkat Trofi (2011–2023)',
+                trophies: '1x UCL, 1x Premier League, 1x CWC, 1x FA Cup, 2x League Cup',
+                quote: 'Mengangkat trofi untuk klub ini adalah kehormatan tertinggi dalam hidup saya.',
+                bio: 'Kapten yang mengangkat seluruh 6 jenis trofi utama dalam era kejayaan Jürgen Klopp.',
+                icon: 'fa-shield-halved'
+            }
+        ];
+
+        // --- 4. TRIVIA QUIZ QUESTIONS DATABASE ---
+        const QUIZ_QUESTIONS = [
+            {
+                q: "Berapa kali Liverpool FC menjuarai kompetisi UEFA Champions League / European Cup?",
+                options: ["4 Kali", "5 Kali", "6 Kali", "7 Kali"],
+                answer: 2,
+                explanation: "Liverpool telah menjuarai UCL/Piala Eropa sebanyak 6 kali (1977, 1978, 1981, 1984, 2005, 2019)."
+            },
+            {
+                q: "Siapakah manajer legendaris yang merintis tradisi 'Boot Room' dan mengubah jersey menjadi All-Red?",
+                options: ["Bob Paisley", "Bill Shankly", "Tom Watson", "Joe Fagan"],
+                answer: 1,
+                explanation: "Bill Shankly mengambil alih pada 1959 dan merevolusi filosofi serta warna jersey klub."
+            },
+            {
+                q: "Pada tahun manakah Liverpool meraih 'Keajaiban Istanbul' menaklukkan AC Milan dari ketinggalan 0-3?",
+                options: ["2001", "2005", "2008", "2019"],
+                answer: 1,
+                explanation: "Final UCL 2005 di Istanbul menyaksikan kebangkitan fantastis pimpinan Steven Gerrard."
+            },
+            {
+                q: "Siapakah kapten yang mengangkat trofi Premier League 2019-2020 mengakhiri dahaga 30 tahun?",
+                options: ["Steven Gerrard", "Virgil van Dijk", "Jordan Henderson", "James Milner"],
+                answer: 2,
+                explanation: "Jordan Henderson mengangkat trofi Premier League di tribun The Kop pada musim 2019-20."
+            },
+            {
+                q: "Berapa total trofi League Cup / EFL Cup yang dikoleksi Liverpool FC (rekor terbanyak di Inggris)?",
+                options: ["8 Trofi", "9 Trofi", "10 Trofi", "12 Trofi"],
+                answer: 2,
+                explanation: "Liverpool memegang rekor pemenang terbanyak League Cup dengan 10 trofi (terakhir tahun 2024)."
+            }
+        ];
+
+        
+        let bookmarkedIds = JSON.parse(localStorage.getItem('lfc_trophy_bookmarks')) || ['ucl', 'league'];
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let selectedOptionIdx = null;
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderChampionsWall();
+            renderTrophies('all');
+            renderTimeline('all');
+            renderLegends();
+            updateBookmarkBadge();
+            initQuiz();
+            initVisualizer();
+            setupSearch();
+
+            // Mobile menu toggle
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+            // Trophy Category Filters
+            document.querySelectorAll('#trophyCategoryTabs .trophy-tab').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('#trophyCategoryTabs .trophy-tab').forEach(b => {
+                        b.classList.remove('bg-lfc-red', 'border-lfc-red', 'text-white', 'shadow-lg');
+                        b.classList.add('bg-lfc-card', 'border-lfc-border', 'text-slate-300');
+                    });
+                    e.target.classList.add('bg-lfc-red', 'border-lfc-red', 'text-white', 'shadow-lg');
+                    e.target.classList.remove('bg-lfc-card', 'border-lfc-border', 'text-slate-300');
+                    renderTrophies(e.target.getAttribute('data-category'));
+                });
+            });
+
+            // Era Filters
+            document.querySelectorAll('#eraFilterTabs .era-tab').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('#eraFilterTabs .era-tab').forEach(b => {
+                        b.classList.remove('bg-lfc-red', 'border-lfc-red', 'text-white');
+                        b.classList.add('bg-lfc-card', 'border-lfc-border', 'text-slate-300');
+                    });
+                    e.target.classList.add('bg-lfc-red', 'border-lfc-red', 'text-white');
+                    e.target.classList.remove('bg-lfc-card', 'border-lfc-border', 'text-slate-300');
+                    renderTimeline(e.target.getAttribute('data-era'));
+                });
+            });
+
+            // Modal Closes
+            document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+            document.getElementById('modalOverlay').addEventListener('click', (e) => {
+                if (e.target.id === 'modalOverlay') closeModal();
+            });
+
+            document.getElementById('openBookmarksBtn').addEventListener('click', openBookmarksModal);
+            document.getElementById('closeBookmarksBtn').addEventListener('click', () => {
+                document.getElementById('bookmarksModalOverlay').classList.add('hidden');
+            });
+
+            // YNWA Lyrics Tab Switcher
+            const lyricEnBtn = document.getElementById('lyricEnBtn');
+            const lyricIdBtn = document.getElementById('lyricIdBtn');
+            const lyricEnText = document.getElementById('lyricEnText');
+            const lyricIdText = document.getElementById('lyricIdText');
+
+            lyricEnBtn.addEventListener('click', () => {
+                lyricEnBtn.className = 'flex-1 py-2 text-lfc-gold border-b-2 border-lfc-gold';
+                lyricIdBtn.className = 'flex-1 py-2 text-slate-400 hover:text-white';
+                lyricEnText.classList.remove('hidden');
+                lyricIdText.classList.add('hidden');
+            });
+
+            lyricIdBtn.addEventListener('click', () => {
+                lyricIdBtn.className = 'flex-1 py-2 text-lfc-gold border-b-2 border-lfc-gold';
+                lyricEnBtn.className = 'flex-1 py-2 text-slate-400 hover:text-white';
+                lyricIdText.classList.remove('hidden');
+                lyricEnText.classList.add('hidden');
+            });
+        });
+
+        // --- 2. CHAMPIONS WALL RENDERER ---
+        function renderChampionsWall() {
+            const grid = document.getElementById('championsWallGrid');
+            grid.innerHTML = '';
+
+            TROPHIES_DATA.forEach(t => {
+                const tile = document.createElement('div');
+                tile.className = 'champions-tile p-5 rounded-2xl cursor-pointer text-center flex flex-col items-center justify-center group';
+                tile.onclick = () => openTrophyModal(t.id);
+
+                tile.innerHTML = `
+                    <div class="text-3xl font-extrabold font-heading ${t.badgeColor} group-hover:scale-110 transition-transform mb-1">${t.count}</div>
+                    <div class="text-[11px] font-bold font-subheading uppercase text-white tracking-wider line-clamp-1">${t.shortName}</div>
+                    <div class="text-[10px] text-slate-400 mt-1 font-mono">${t.firstWon} - ${t.lastWon}</div>
+                `;
+                grid.appendChild(tile);
+            });
+        }
+
+        // --- 3. TROPHY CABINET RENDERER ---
+        function renderTrophies(category = 'all', searchQuery = '') {
+            const container = document.getElementById('trophyGrid');
+            container.innerHTML = '';
+
+            let filtered = TROPHIES_DATA;
+
+            if (category !== 'all') {
+                filtered = filtered.filter(t => t.category === category);
+            }
+
+            if (searchQuery) {
+                filtered = filtered.filter(t => 
+                    t.name.toLowerCase().includes(searchQuery) || 
+                    t.years.some(y => y.includes(searchQuery))
+                );
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-slate-400">Tidak ada trofi yang cocok dengan kriteria pencarian.</div>`;
+                return;
+            }
+
+            filtered.forEach(t => {
+                const isBookmarked = bookmarkedIds.includes(t.id);
+                const card = document.createElement('div');
+                card.className = "glass-panel rounded-2xl overflow-hidden border border-lfc-border hover:border-lfc-gold/60 transition-all duration-300 flex flex-col justify-between group";
+
+                card.innerHTML = `
+                    <div>
+                        <!-- Card Banner Image with Gold Badge -->
+                        <div class="relative h-44 overflow-hidden">
+                            <img src="${t.image}" alt="${t.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-lfc-card via-transparent to-black/40"></div>
+                            
+                            <!-- Title Count Gold Badge -->
+                            <div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-lfc-dark/90 border border-lfc-gold text-lfc-gold font-heading font-extrabold text-sm shadow-lg flex items-center gap-1">
+                                <i class="fa-solid fa-trophy text-xs"></i> ${t.count}x
+                            </div>
+
+                            <!-- Bookmark Toggle Button -->
+                            <button onclick="toggleBookmark(event, '${t.id}')" class="absolute top-3 left-3 w-8 h-8 rounded-full ${isBookmarked ? 'bg-lfc-gold text-lfc-dark' : 'bg-lfc-dark/80 text-slate-300'} flex items-center justify-center hover:scale-110 transition-all border border-lfc-gold/40">
+                                <i class="fa-solid fa-star text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="p-5">
+                            <h4 class="text-base font-bold text-white font-heading mb-2 line-clamp-1 group-hover:text-lfc-gold transition-colors">${t.name}</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed line-clamp-2 mb-4">${t.description}</p>
+                            <div class="text-[11px] font-mono font-semibold text-lfc-gold mb-1">Tahun Juara: ${t.years.slice(-5).join(', ')}${t.years.length > 5 ? '...' : ''}</div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 pt-0">
+                        <button onclick="openTrophyModal('${t.id}')" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-lfc-red to-lfc-darkred hover:from-red-600 hover:to-lfc-red text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md">
+                            Lihat Momen & Foto <i class="fa-solid fa-circle-info text-xs"></i>
+                        </button>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // --- 4. HISTORICAL TIMELINE RENDERER ---
+        function renderTimeline(eraFilter = 'all') {
+            const container = document.getElementById('timelineList');
+            container.innerHTML = '';
+
+            const filtered = eraFilter === 'all' 
+                ? HISTORICAL_ERAS 
+                : HISTORICAL_ERAS.filter(item => item.era === eraFilter);
+
+            filtered.forEach((item, index) => {
+                const isEven = index % 2 === 0;
+                const card = document.createElement('div');
+                card.className = `relative flex flex-col md:flex-row items-center ${isEven ? 'md:flex-row-reverse' : ''}`;
+
+                card.innerHTML = `
+                    <div class="w-full md:w-1/2 p-4">
+                        <div class="glass-panel p-6 rounded-2xl border border-lfc-border hover:border-lfc-red transition-all group shadow-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-bold px-3 py-1 rounded-full bg-lfc-red/20 text-lfc-gold border border-lfc-red/30 uppercase font-subheading">${item.trophiesWon}</span>
+                                <span class="font-heading font-extrabold text-lg text-lfc-gold">${item.years}</span>
+                            </div>
+                            <h4 class="text-lg font-bold text-white group-hover:text-lfc-gold transition-colors mb-2 font-heading">${item.title}</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-4">${item.summary}</p>
+                            <p class="text-xs text-slate-400 italic bg-lfc-dark/60 p-3 rounded-xl border border-lfc-border">${item.details}</p>
+                        </div>
+                    </div>
+                    <div class="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-lfc-dark border-2 border-lfc-gold text-lfc-gold flex items-center justify-center text-sm shadow-xl shadow-lfc-gold/20 z-10">
+                        <i class="fa-solid ${item.icon}"></i>
+                    </div>
+                    <div class="w-full md:w-1/2"></div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        // --- 5. HALL OF LEGENDS RENDERER ---
+        function renderLegends() {
+            const container = document.getElementById('legendsGrid');
+            container.innerHTML = '';
+
+            LEGENDS_DATA.forEach(leg => {
+                const card = document.createElement('div');
+                card.className = "glass-panel p-6 rounded-2xl border border-lfc-border hover:border-lfc-gold/50 transition-all flex flex-col justify-between group shadow-xl";
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-2xl bg-lfc-red/20 border border-lfc-red/40 text-lfc-gold flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid ${leg.icon}"></i>
+                            </div>
+                            <span class="text-[10px] font-bold font-subheading px-2.5 py-1 rounded-md bg-lfc-dark text-lfc-gold border border-lfc-border uppercase">${leg.role}</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-white font-heading group-hover:text-lfc-gold transition-colors mb-1">${leg.name}</h4>
+                        <div class="text-xs font-semibold text-lfc-gold mb-3"><i class="fa-solid fa-trophy mr-1"></i> ${leg.trophies}</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">${leg.bio}</p>
+                    </div>
+
+                    <blockquote class="p-3.5 rounded-xl bg-lfc-dark/80 border-l-4 border-lfc-red text-xs text-slate-300 italic">
+                        "${leg.quote}"
+                    </blockquote>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // --- 6. MODAL & BOOKMARK SYSTEM ---
+        function openTrophyModal(trophyId) {
+            const t = TROPHIES_DATA.find(item => item.id === trophyId);
+            if (!t) return;
+
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
+                <div class="relative h-64 rounded-2xl overflow-hidden mb-6 border border-lfc-border">
+                    <img src="${t.celebrationImg}" alt="${t.name}" class="w-full h-full object-cover" onerror="this.src='${t.image}'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-lfc-card via-lfc-card/40 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <span class="text-xs font-bold font-subheading text-lfc-gold uppercase tracking-widest block mb-1">Dokumentasi Sejarah Trofi</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold font-heading text-white">${t.name}</h3>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 text-center">
+                    <div class="bg-lfc-dark p-3 rounded-xl border border-lfc-border">
+                        <span class="text-[10px] text-slate-400 uppercase block font-subheading">Total Koleksi</span>
+                        <span class="text-lg font-extrabold text-lfc-gold font-heading">${t.count} Gelar</span>
+                    </div>
+                    <div class="bg-lfc-dark p-3 rounded-xl border border-lfc-border">
+                        <span class="text-[10px] text-slate-400 uppercase block font-subheading">Pertama Kali</span>
+                        <span class="text-lg font-bold text-white font-heading">${t.firstWon}</span>
+                    </div>
+                    <div class="bg-lfc-dark p-3 rounded-xl border border-lfc-border">
+                        <span class="text-[10px] text-slate-400 uppercase block font-subheading">Terakhir Diraih</span>
+                        <span class="text-lg font-bold text-lfc-red font-heading">${t.lastWon}</span>
+                    </div>
+                    <div class="bg-lfc-dark p-3 rounded-xl border border-lfc-border">
+                        <span class="text-[10px] text-slate-400 uppercase block font-subheading">Status Rekor</span>
+                        <span class="text-xs font-bold text-lfc-teal mt-1 block">Raja Mahkota</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+                    <p>${t.description}</p>
+                    
+                    <div class="bg-lfc-dark/80 p-4 rounded-xl border border-lfc-border space-y-2">
+                        <div class="text-xs font-bold text-lfc-gold uppercase font-subheading"><i class="fa-solid fa-calendar-days mr-1"></i> Daftar Lengkap Tahun Juara:</div>
+                        <p class="text-xs text-white font-mono leading-relaxed">${t.years.join(', ')}</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="p-3 bg-lfc-dark/80 rounded-xl border border-lfc-border">
+                            <span class="text-[10px] font-bold text-lfc-gold uppercase block font-subheading">Kapten Pengangkat Trofi:</span>
+                            <span class="text-xs text-slate-200">${t.captains}</span>
+                        </div>
+                        <div class="p-3 bg-lfc-dark/80 rounded-xl border border-lfc-border">
+                            <span class="text-[10px] font-bold text-lfc-gold uppercase block font-subheading">Manajer Pemimpin:</span>
+                            <span class="text-xs text-slate-200">${t.managers}</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-lfc-red/10 border border-lfc-red/30 text-xs text-slate-200">
+                        <span class="font-bold text-lfc-gold uppercase block mb-1 font-subheading"><i class="fa-solid fa-star mr-1"></i> Momen Final Bersejarah:</span>
+                        ${t.finalTrivia}
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalOverlay').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.add('hidden');
+        }
+
+        function toggleBookmark(e, trophyId) {
+            e.stopPropagation();
+            if (bookmarkedIds.includes(trophyId)) {
+                bookmarkedIds = bookmarkedIds.filter(id => id !== trophyId);
+                showToast("Dihapus dari daftar favorit.");
+            } else {
+                bookmarkedIds.push(trophyId);
+                showToast("Ditambahkan ke trofi favorit!");
+            }
+            localStorage.setItem('lfc_trophy_bookmarks', JSON.stringify(bookmarkedIds));
+            updateBookmarkBadge();
+            renderTrophies();
+        }
+
+        function updateBookmarkBadge() {
+            document.getElementById('bookmarkBadge').innerText = bookmarkedIds.length;
+        }
+
+        function openBookmarksModal() {
+            const listContainer = document.getElementById('bookmarksList');
+            listContainer.innerHTML = '';
+
+            const bookmarkedTrophies = TROPHIES_DATA.filter(t => bookmarkedIds.includes(t.id));
+
+            if (bookmarkedTrophies.length === 0) {
+                listContainer.innerHTML = `<p class="text-center text-slate-400 py-8 text-xs">Belum ada trofi yang ditambahkan ke favorit.</p>`;
+            } else {
+                bookmarkedTrophies.forEach(t => {
+                    const item = document.createElement('div');
+                    item.className = 'p-3.5 rounded-xl bg-lfc-dark border border-lfc-border flex items-center justify-between gap-3';
+                    item.innerHTML = `
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-lfc-red/20 text-lfc-gold font-heading font-bold flex items-center justify-center text-sm border border-lfc-red/30">
+                                ${t.count}x
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white font-heading">${t.name}</h4>
+                                <span class="text-[10px] text-lfc-gold font-mono">${t.firstWon} - ${t.lastWon}</span>
+                            </div>
+                        </div>
+                        <button onclick="toggleBookmark(event, '${t.id}'); openBookmarksModal();" class="text-slate-400 hover:text-lfc-red text-xs p-1">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    `;
+                    listContainer.appendChild(item);
+                });
+            }
+
+            document.getElementById('bookmarksModalOverlay').classList.remove('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastText').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 2500);
+        }
+
+        // --- 7. YNWA AUDIO SYNTHESIZER & VISUALIZER ---
+        let audioCtx, isPlayingYNWA = false, animFrame;
+
+        function initVisualizer() {
+            const canvas = document.getElementById('visualizerCanvas');
+            const ctx = canvas.getContext('2d');
+            const playBtn = document.getElementById('playYNWABtn');
+            const playIcon = document.getElementById('playYNWAIcon');
+
+            function resize() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            drawBars(ctx, canvas.width, canvas.height);
+
+            playBtn.addEventListener('click', () => {
+                if (!isPlayingYNWA) {
+                    startAudioSynth();
+                    playIcon.className = "fa-solid fa-pause ml-0";
+                    isPlayingYNWA = true;
+                } else {
+                    stopAudioSynth();
+                    playIcon.className = "fa-solid fa-play ml-1";
+                    isPlayingYNWA = false;
+                }
+            });
+        }
+
+        function drawBars(ctx, width, height) {
+            ctx.clearRect(0, 0, width, height);
+            const bars = 28;
+            const barW = (width / bars) - 4;
+
+            for (let i = 0; i < bars; i++) {
+                const barH = isPlayingYNWA 
+                    ? Math.sin(Date.now() * 0.006 + i * 0.4) * (height * 0.35) + (height * 0.4) 
+                    : 12;
+
+                const x = i * (barW + 4) + 2;
+                const y = height - barH;
+
+                const grad = ctx.createLinearGradient(0, height, 0, 0);
+                grad.addColorStop(0, '#C8102E');
+                grad.addColorStop(1, '#D4AF37');
+
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.roundRect(x, y, barW, barH, [4, 4, 0, 0]);
+                ctx.fill();
+            }
+
+            if (isPlayingYNWA) {
+                animFrame = requestAnimationFrame(() => drawBars(ctx, width, height));
+            }
+        }
+
+        function startAudioSynth() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const melody = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25];
+            let noteIdx = 0;
+
+            window.synthTimer = setInterval(() => {
+                if (!isPlayingYNWA || !audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(melody[noteIdx % melody.length], audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.7);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.7);
+                noteIdx++;
+            }, 450);
+
+            const canvas = document.getElementById('visualizerCanvas');
+            drawBars(canvas.getContext('2d'), canvas.width, canvas.height);
+        }
+
+        function stopAudioSynth() {
+            if (window.synthTimer) clearInterval(window.synthTimer);
+            if (animFrame) cancelAnimationFrame(animFrame);
+            const canvas = document.getElementById('visualizerCanvas');
+            drawBars(canvas.getContext('2d'), canvas.width, canvas.height);
+        }
+
+        // --- 8. QUIZ TRIVIA ENGINE ---
+        function initQuiz() {
+            renderQuestion();
+
+            document.getElementById('nextQuizBtn').addEventListener('click', () => {
+                if (selectedOptionIdx === null) return;
+
+                const q = QUIZ_QUESTIONS[currentQuizIndex];
+                if (selectedOptionIdx === q.answer) {
+                    quizScore++;
+                    playBeepSound(600);
+                } else {
+                    playBeepSound(250);
+                }
+
+                currentQuizIndex++;
+                selectedOptionIdx = null;
+
+                if (currentQuizIndex < QUIZ_QUESTIONS.length) {
+                    renderQuestion();
+                } else {
+                    showQuizResult();
+                }
+            });
+
+            document.getElementById('restartQuizBtn').addEventListener('click', () => {
+                currentQuizIndex = 0;
+                quizScore = 0;
+                selectedOptionIdx = null;
+                document.getElementById('quizBody').classList.remove('hidden');
+                document.getElementById('quizResult').classList.add('hidden');
+                renderQuestion();
+            });
+        }
+
+        function renderQuestion() {
+            const q = QUIZ_QUESTIONS[currentQuizIndex];
+            document.getElementById('quizTracker').innerText = `Pertanyaan ${currentQuizIndex + 1} dari ${QUIZ_QUESTIONS.length}`;
+            document.getElementById('quizScoreDisplay').innerText = `Skor: ${quizScore}`;
+            document.getElementById('quizQuestionText').innerText = q.q;
+
+            const container = document.getElementById('quizOptionsContainer');
+            container.innerHTML = '';
+
+            const nextBtn = document.getElementById('nextQuizBtn');
+            nextBtn.disabled = true;
+            nextBtn.classList.add('opacity-50');
+
+            document.getElementById('quizFeedback').innerText = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl bg-lfc-dark border border-lfc-border hover:border-lfc-gold text-xs sm:text-sm text-slate-200 transition-all flex items-center justify-between group";
+                btn.innerHTML = `
+                    <span>${opt}</span>
+                    <i class="fa-regular fa-circle text-slate-500 group-hover:text-lfc-gold"></i>
+                `;
+
+                btn.onclick = () => {
+                    Array.from(container.children).forEach(child => {
+                        child.className = "w-full text-left p-4 rounded-xl bg-lfc-dark border border-lfc-border text-xs sm:text-sm text-slate-200 transition-all flex items-center justify-between";
+                    });
+
+                    btn.className = "w-full text-left p-4 rounded-xl bg-lfc-red/20 border-2 border-lfc-gold text-xs sm:text-sm text-white font-bold flex items-center justify-between";
+                    selectedOptionIdx = idx;
+
+                    nextBtn.disabled = false;
+                    nextBtn.classList.remove('opacity-50');
+                };
+
+                container.appendChild(btn);
+            });
+        }
+
+        function showQuizResult() {
+            document.getElementById('quizBody').classList.add('hidden');
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.classList.remove('hidden');
+
+            document.getElementById('finalScoreText').innerText = `Skor Akhir Kamu: ${quizScore} / ${QUIZ_QUESTIONS.length}`;
+
+            const badgeTitle = document.getElementById('badgeTitle');
+            const badgeDesc = document.getElementById('badgeDescription');
+
+            if (quizScore === 5) {
+                badgeTitle.innerText = "ANFIELD LEGEND (5/5)";
+                badgeDesc.innerText = "Sempurna! Kamu adalah Kopite sejati dengan pemahaman luar biasa atas sejarah dan trofi Liverpool FC. You'll Never Walk Alone!";
+            } else if (quizScore >= 3) {
+                badgeTitle.innerText = "KOPITE TRUE RED (3-4/5)";
+                badgeDesc.innerText = "Sangat Bagus! Pengetahuan sejarahmu sangat kuat dan kamu memahami nilai-nilai keagungan Anfield.";
+            } else {
+                badgeTitle.innerText = "THE ANFIELDER (0-2/5)";
+                badgeDesc.innerText = "Tetap semangat! Eksplor seluruh lemari trofi dan garis waktu sejarah di website ini untuk menjadi master Kopite!";
+            }
+        }
+
+        function playBeepSound(freq) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } catch (e) {}
+        }
+
+        // --- 9. GLOBAL REAL-TIME SEARCH ENGINE ---
+        function setupSearch() {
+            const inputDesk = document.getElementById('globalSearchInput');
+            const inputMob = document.getElementById('globalSearchInputMobile');
+
+            const handleSearch = (e) => {
+                const q = e.target.value.toLowerCase().trim();
+                renderTrophies('all', q);
+
+                if (q.length > 2) {
+                    const cabinetEl = document.getElementById('trophy-cabinet');
+                    cabinetEl.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+
+            if (inputDesk) inputDesk.addEventListener('input', handleSearch);
+            if (inputMob) inputMob.addEventListener('input', handleSearch);
+        }
+    </script>
+</body>
+</html>
